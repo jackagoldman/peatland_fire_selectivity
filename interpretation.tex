@@ -1,0 +1,26 @@
+\section{Interpretation of Results: Fire Selectivity in Peatland Ecosystems}
+
+The analysis of fire selectivity across various peatland landcover types reveals significant insights into how weather conditions (ISI: Initial Spread Index) and combustible fuel availability (BUI: Buildup Index) influence fire behaviour at different quantiles of selectivity. Using quantile regression models at $\tau = 0.5$ (median selectivity, representing typical fire behaviour) and $\tau = 0.9$ (high selectivity, representing extreme fire events), we examined the fixed effects and evaluated model performance via pinball loss.
+
+\subsection{Key Findings from Fixed Effects}
+
+\subsubsection{ISI Effects}
+- At $\tau = 0.5$, ISI.mean shows significant positive associations with selectivity in several landcovers, including open\_bog ($p < 0.001$), total\_bog ($p < 0.001$), open\_permafrost ($p = 0.001$), and forested\_permafrost ($p = 0.011$). This suggests that drier and windier weather conditions enhance fire selectivity in these peatland types during typical fires.
+- At $\tau = 0.9$, the effects are stronger and more widespread. Significant positive slopes are observed in open\_bog ($p < 0.001$), total\_bog ($p < 0.001$), total\_permafrost ($p < 0.001$), forested\_permafrost ($p < 0.001$), open\_permafrost ($p = 0.001$), and others. The coefficients are generally larger (e.g., open\_bog: 0.0099 vs. 0.0053), indicating that extreme fires are more sensitive to weather-driven spread.
+
+\subsubsection{BUI Effects}
+- At $\tau = 0.5$, BUI.mean effects are less pronounced, with significant negative associations in mineral ($p = 0.002$) and open\_rich\_fen ($p = 0.014$), suggesting that in typical fires, more combustible fuels do not increase selectivity in these areas or fires may still resist burning into these areas under these conditions.
+- At $\tau = 0.9$, BUI.mean shows significant positive effects in most landcovers, including forested\_bog ($p < 0.001$), forested\_permafrost ($p < 0.001$), forested\_poor\_fen ($p < 0.001$), and many others. This implies that fuel dryness strongly amplifies selectivity during high-selectivity fires, potentially due to increased flammability of drier peat.
+
+\subsection{Model Performance: Pinball Loss}
+Pinball loss values are consistently lower at $\tau = 0.9$ compared to $\tau = 0.5$ across all landcovers (e.g., forested\_bog: 0.0066 vs. 0.0123), indicating better model fit for predicting extreme selectivity events. This heterogeneity suggests that the drivers of fire selectivity are not uniform; factors like ISI and BUI disproportionately influence rare, intense fires.
+
+\subsection{Implications for Fire Selectivity and Ecology}
+These results highlight the non-linear nature of fire selectivity in peatlands. At the median level ($\tau = 0.5$), fires exhibit moderate responsiveness to environmental conditions, allowing for some ecological resilience (or RESISTANCE). However, at $\tau = 0.9$, extreme fires show heightened sensitivity to dry weather and fuels, potentially leading to rapid landscape changes in vulnerable peatland types like bogs and permafrost areas.
+
+Ecologically, this has profound implications:
+- **Peatland Fire Regimes**: Peatlands, critical for carbon storage and biodiversity, may experience increased fire frequency and be selected for more under climate change, as drier conditions amplify selectivity for flammable landcovers.
+- **Management Strategies**: Fire management should prioritize monitoring ISI and BUI in high-risk areas (e.g., open bogs), focusing on extreme fire prevention to mitigate carbon emissions and habitat loss.
+- **Research Directions**: Future studies could explore interactions with other factors (e.g., vegetation structure) and validate these quantile-based insights with field data.
+
+Overall, the analysis underscores that while typical fires maintain some balance, extreme events driven by synergistic weather and fuel conditions pose significant threats to peatland ecosystems.
