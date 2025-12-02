@@ -1,0 +1,282 @@
+---
+title: "fire selectivity by progression - resource selection function "
+author: 
+  - Jack A. Goldman 
+date: "`r Sys.Date()`"
+format:
+  pdf:
+    toc: true
+    toc-title: "Index"
+    colorlinks: true
+    geometry:
+      - top=30mm
+      - left=30mm
+      - right=30mm
+      - bottom=30mm
+---
+
+```{r}
+library(terra)
+library(sf)
+library(parallel)
+```
+
+Read in rasters
+
+```{r}
+peatland_data <- rast("G:/Fire_Selectivity/NickPelletier - do not delete/Peat map Pontone/PeatlandMap8b_2023_07_17.tif")
+
+canopy_path = ("W:/koreen/NickPelletier - do not delete/SCANFI/Reclass_SCAN4_1.tif")  
+canopy_data = ras(canopy_path)
+
+# Read in shapefile
+fire_prog <- st_read("G:/Fire_Selectivity/NickPelletier - do not delete/fire polygons 2023/landscape_processed_polygons_km_oct18.shp")        # Adjust path asneeded
+
+```
+
+```{r}
+# Reclassify canopy raster
+reclass_df <- c(0, 9, 1,    # Open
+                10, 24, 2,  # Treed
+                25, Inf, 3) # Forested
+
+reclass_m <- matrix(reclass_df,
+                    ncol = 3,
+                    byrow = TRUE)
+
+canopy_data_classified <- classify(canopy_data, reclass_m)
+
+
+```
+
+```{r}
+datatype(canopy_data_classified)
+```
+
+```{r}
+writeRaster(canopy_data_classified, filename = "E:/Jack/data/peatland_fire_selectivity/scanfi/scanfi_canopy_data_classified_8bit.tif", datatype ="INT1U", overwrite = TRUE)
+```
+
+```{r}
+# Function to merge canopy and peat maps
+MergeCanopyPeat <- function(PeatlandMap, CanopyClosure) {
+  
+  r1 <- PeatlandMap
+  r2 <- CanopyClosure
+  
+  r3 <- rast(r1)
+  
+  # Fill based on conditions
+  r3[r1 == 1 & r2 == 1] <- 1  # Open Bog
+  r3[r1 == 1 & r2 == 2] <- 2  # Treed Bog
+  r3[r1 == 1 & r2 == 3] <- 3  # Forested Bog
+  
+  r3[r1 == 2 & r2 == 1] <- 4  # Open Rich Fen
+  r3[r1 == 2 & r2 == 2] <- 5  # Treed Rich Fen
+  r3[r1 == 2 & r2 == 3] <- 6  # Forested Rich Fen
+  
+  r3[r1 == 3 & r2 == 1] <- 7  # Open Poor Fen
+  r3[r1 == 3 & r2 == 2] <- 8  # Treed Poor Fen
+  r3[r1 == 3 & r2 == 3] <- 9  # Forested Poor Fen
+  
+  r3[r1 == 4 & r2 == 1] <- 10 # Open PPC 
+  r3[r1 == 4 & r2 == 2] <- 11 # Treed PPC
+  r3[r1 == 4 & r2 == 3] <- 12 # Forested PPC
+  
+  r3[r1 == 5] <- 13 # Mineral Wetlands
+  r3[r1 == 6] <- 14 # Water
+  r3[r1 == 7] <- 15 # Upland
+  r3[r1 == 8] <- 16 # Agriculture
+  r3[r1 == 9] <- 17 # Urban
+  
+  return(r3)
+}
+
+
+```
+
+Function for getting pixels values
+
+start list
+
+```{r}
+# Get files from dnbr_raster folder
+dnbr_files <- list.files("G:/Fire_Selectivity/NickPelletier - do not delete/dNBR rasters/", pattern = "*_dnbr.tif$", full.names = TRUE)
+fire_ids <- sub("_dnbr.tif$", "", basename(dnbr_files))
+
+# Filter shapefile
+prog_poly <- fire_prog[fire_prog$K_FireID %in% fire_ids, ]
+```
+
+Test data
+
+```{r}
+
+test_pro_poly = prog_poly %>% filter(NFIREID == "191")
+```
+
+function
+
+```{r}
+
+
+# progression K_fireID = dnbr_files without suffix
+# when working with clipping data should be done by CLUSTERID
+
+# Function to process each fire
+process_fire <- function(i, prog_poly, canopy_data_classified, peatland_data) {
+  require(c("sf", "terra"))
+  poly <- prog_poly[i, ]
+  
+  # Transform polygon to CRS 4326 for centroids later
+  poly_4326 <- st_transform(poly, 4326)
+  
+  k_fireid <- poly$K_FireID # for matchin dnbr files
+  cluster_id <- poly$CLUSTERID # so we only work on one cluster at a time for a given fire
+  
+  # Read corresponding DNBR raster
+  dnbr_raster <- rast(paste0("G:/Fire_Selectivity/NickPelletier - do not delete/dNBR rasters/", k_fireid, "_dnbr.tif"))
+  
+  # Ensure projections match for clipping
+  raster_crs <- crs(dnbr_raster)
+  if (!same.crs(canopy_data_classified, raster_crs)) {
+    canopy_data_classified_proj <- project(canopy_data_classified, raster_crs)
+  } else {
+    canopy_data_classified_proj <- canopy_data_classified
+  }
+  
+  if (!same.crs(peatland_data, raster_crs)) {
+    peatland_data_proj <- project(peatland_data, raster_crs)
+  } else {
+    peatland_data_proj <- peatland_data
+  }
+  
+  # Transform polygon to raster CRS for clipping
+  poly_raster_crs <- st_transform(poly, raster_crs)
+  
+  # Clip rasters
+  canopy_clipped <- mask(canopy_data_classified_proj, poly_raster_crs)
+  peat_clipped <- mask(peatland_data_proj, poly_raster_crs)
+  
+  # Merge using function
+  merged <- MergeCanopyPeat(peat_clipped, canopy_clipped)
+  
+  # Find burned pixels (> 0.1)
+  burned <- dnbr_raster > 0.1
+  burned_clipped <- mask(burned, poly_raster_crs)
+  
+  # Find unburned pixels (< 0.1)
+  unburned <- dnbr_raster < 0.1
+  unburned_clipped <- mask(unburned, poly_raster_crs)
+  
+  # Get centroids for burned pixels
+  if (global(burned_clipped, "sum", na.rm = TRUE) > 0) {
+    burned_pts <- as.points(burned_clipped, values = TRUE)
+    coords_burned_raw <- crds(burned_pts)
+    lc_burned <- extract(merged, burned_pts)[, 2]
+    burned_pts_sf <- st_as_sf(data.frame(x = coords_burned_raw[, 1], y = coords_burned_raw[, 2], lc = lc_burned), 
+                              coords = c("x", "y"), crs = raster_crs)
+    burned_pts_4326 <- st_transform(burned_pts_sf, 4326)
+    coords_burned <- st_coordinates(burned_pts_4326)
+    burned_df <- data.frame(
+      Used = 1,
+      Lc_class = lc_burned,
+      X = coords_burned[, 1],  # Longitude
+      Y = coords_burned[, 2],  # Latitude
+      P_size = prod(res(dnbr_raster)),  # Pixel area
+      Fire_ID = k_fireid,
+      K_UniqueID = poly$K_UniqueID,
+      CLUSTERID = cluster_id,
+      AREA = poly$AREA, 
+      C_AREA = poly$C_AREA
+    )
+  } else {
+    burned_df <- data.frame(
+      Used = integer(),
+      Lc_class = integer(),
+      X = numeric(),
+      Y = numeric(),
+      P_size = numeric(),
+      Fire_ID = character(),
+      K_UniqueID = character(),
+      CLUSTERID = character(),
+      AREA = numeric(),
+      C_AREA = numeric()
+    )
+  }
+  
+  # Get centroids for unburned pixels
+  if (global(unburned_clipped, "sum", na.rm = TRUE) > 0) {
+    unburned_pts <- as.points(unburned_clipped, values = TRUE)
+    coords_unburned_raw <- crds(unburned_pts)
+    lc_unburned <- extract(merged, unburned_pts)[, 2]
+    unburned_pts_sf <- st_as_sf(data.frame(x = coords_unburned_raw[, 1], y = coords_unburned_raw[, 2], lc = lc_unburned), 
+                                coords = c("x", "y"), crs = raster_crs)
+    unburned_pts_4326 <- st_transform(unburned_pts_sf, 4326)
+    coords_unburned <- st_coordinates(unburned_pts_4326)
+    unburned_df <- data.frame(
+      Used = 0,
+      Lc_class = lc_unburned,
+      X = coords_unburned[, 1],  # Longitude
+      Y = coords_unburned[, 2],  # Latitude
+      P_size = prod(res(dnbr_raster)),  # Pixel area
+      Fire_ID = k_fireid,
+      K_UniqueID = poly$K_UniqueID,
+      CLUSTERID = cluster_id, 
+      AREA = poly$AREA, 
+      C_AREA = poly$C_AREA
+    )
+  } else {
+    unburned_df <- data.frame(
+      Used = integer(),
+      Lc_class = integer(),
+      X = numeric(),
+      Y = numeric(),
+      P_size = numeric(),
+      Fire_ID = character(),
+      K_UniqueID = character(),
+      CLUSTERID = character(),
+      AREA = numeric(),
+      C_AREA = numeric()
+    )
+  }
+  
+  # Combine burned and unburned for this fire
+  fire_df <- rbind(burned_df, unburned_df)
+  return(fire_df)
+}
+
+
+```
+
+run script
+
+```{r}
+# Parallel processing
+num_cores <- detectCores() - 1
+cl = makeCluster(num_cores)
+
+#export necessary objects to the cluster
+clusterExport(cl, c("process_fire", "test_pro_poly", "canopy_data_classified", "peatland_data"))
+
+
+results <- parLapply(cl, 1:nrow(prog_poly), function(i) {
+  process_fire(i, prog_poly = test_pro_poly, 
+                    canopy_data_classified = canopy_data_classified, 
+                    peatland_data = peatland_data)
+})
+
+stopCluster(cl)
+
+
+```
+
+bind results and save
+
+```{r}
+# Combine all results
+final_df <- do.call(rbind, results)
+
+# Write to CSV
+write.csv(final_df, "results/hsf_fire_selectivity_data.csv", row.names = FALSE)
+```
