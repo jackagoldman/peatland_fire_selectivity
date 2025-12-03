@@ -50,12 +50,15 @@ process_fire <- function(i, prog_poly, dnbr_path , peatland_data) {
   masked_peatland_raster = peatland_raster
   masked_peatland_raster[!burned] = NA # contains land cover only in burned areas
   
+  # make sure crs for poly is the same as peatland_raster
+  poly <- st_transform(poly, crs(peatland_raster))
+
   # rasterize polygon for spatial masking
-  polygon_raster = rasterize(polygon, peatland_raster)# conversts the fire progression polygon into a reask mask matching the grid of peatland_raster. Pixels inside the polygon are set to a value of 1 and outside toNA or 0. Create a spatial max for fire boundary
+  polygon_raster = rasterize(poly, peatland_raster)# conversts the fire progression polygon into a reask mask matching the grid of peatland_raster. Pixels inside the polygon are set to a value of 1 and outside toNA or 0. Create a spatial max for fire boundary
   
   #align extents to prevent cropping errors
   polygon_raster = crop(polygon_raster, st_bbox(masked_peatland_raster))
-  masked_peatland_raster = crop(masked_peatland_raster, st_bb(polygon_raster)) # crops both rasters to each others bounding box to ensure identical extents, avoids errors from mismatched raster dimensions during masking, as mask requires aligned inputs.
+  masked_peatland_raster = crop(masked_peatland_raster, st_bbox(polygon_raster)) # crops both rasters to each others bounding box to ensure identical extents, avoids errors from mismatched raster dimensions during masking, as mask requires aligned inputs.
   
   #final mask to the polygon boundary
   burned_peatland_raster = mask(masked_peatland_raster, polygon_raster) # applis the polygon mask. setting pixels outside the polygon to NA. The results is a raster with alndcover values only for burned pixels inside the fire polygon.
@@ -76,7 +79,7 @@ process_fire <- function(i, prog_poly, dnbr_path , peatland_data) {
   
   
   # Get centroids for burned pixels
-  if (cellStats(burned_peatland_raster, "notNA", na.rm = TRUE) > 0) {
+  if (cellStats(burned_peatland_raster, 'countNA', na.rm = TRUE) > 0) {
     burned_pts <- rasterToPoints(burned_peatland_raster)
     coords_burned_raw <- burned_pts[, 1:2]
     lc_burned <- burned_pts[, 3]
@@ -89,7 +92,6 @@ process_fire <- function(i, prog_poly, dnbr_path , peatland_data) {
       Lc_class = lc_burned,
       X = coords_burned[, 1],  # Longitude
       Y = coords_burned[, 2],  # Latitude
-      P_size = prod(res(dnbr_raster)),  # Pixel area
       Fire_ID = k_fireid,
       K_UniqueID = poly$K_UniqueID,
       CLUSTERID = cluster_id,
@@ -102,7 +104,6 @@ process_fire <- function(i, prog_poly, dnbr_path , peatland_data) {
       Lc_class = integer(),
       X = numeric(),
       Y = numeric(),
-      P_size = numeric(),
       Fire_ID = character(),
       K_UniqueID = character(),
       CLUSTERID = character(),
@@ -112,7 +113,7 @@ process_fire <- function(i, prog_poly, dnbr_path , peatland_data) {
   }
   
   # Get centroids for unburned pixels
-  if (cellStats(unburned_peatland_raster, "notNA", na.rm = TRUE) > 0) {
+  if (cellStats(unburned_peatland_raster, 'countNA', na.rm = TRUE) > 0) {
     unburned_pts <- rasterToPoints(unburned_peatland_raster)
     coords_unburned_raw <- unburned_pts[, 1:2]
     lc_unburned <- unburned_pts[, 3]
@@ -125,7 +126,6 @@ process_fire <- function(i, prog_poly, dnbr_path , peatland_data) {
       Lc_class = lc_unburned,
       X = coords_unburned[, 1],  # Longitude
       Y = coords_unburned[, 2],  # Latitude
-      P_size = prod(res(dnbr_raster)),  # Pixel area
       Fire_ID = k_fireid,
       K_UniqueID = poly$K_UniqueID,
       CLUSTERID = cluster_id, 
@@ -138,16 +138,25 @@ process_fire <- function(i, prog_poly, dnbr_path , peatland_data) {
       Lc_class = integer(),
       X = numeric(),
       Y = numeric(),
-      P_size = numeric(),
       Fire_ID = character(),
       K_UniqueID = character(),
       CLUSTERID = character(),
       AREA = numeric(),
       C_AREA = numeric()
     )
+   
   }
-  
+
   # Combine burned and unburned for this fire
   fire_df <- rbind(burned_df, unburned_df)
+  
+  # get total pixels, burned and unburned
+  total_pixels <- nrow(fire_df)
+  burned_pixels <- sum(fire_df$Used ==1)
+  unburned_pixels <- sum(fire_df$Used ==0)
+  
+  # add to df 
+  fire_df$P_num <- ifelse(fire_df$Used == 1, burned_pixels, unburned_pixels)
+  fire_df$P_total <- total_pixels
   return(fire_df)
 }

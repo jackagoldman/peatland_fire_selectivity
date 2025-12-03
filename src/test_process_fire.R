@@ -1,6 +1,6 @@
 library(raster)
 library(sf)
-
+library(dplyr)
 
 # set working directory to the script's directory
 project_root <- getwd()
@@ -11,7 +11,7 @@ source(file.path(project_root, "src/functions/process_fire.R"))
 
 # set paths
 dnbr_path = ("G:/Fire_Selectivity/NickPelletier - do not delete/dNBR rasters/")
-peatland_path = ("G:/Fire_Selectivity/NickPelletier - do not delete/Peat Map Pontone/PeatlandMap8b_2023_07_17.tif")
+peatland_path = ("E:/Jack/data/peatland_fire_selectivity/Peat_Canopy_2023_11_06.tif")
 progression_path = ("G:/Fire_Selectivity/NickPelletier - do not delete/fire polygons 2023/landscape_processed_polygons_km_oct18.shp")
 
 # read in rasters
