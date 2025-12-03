@@ -1,5 +1,5 @@
 # Function to process each fire
-source("src/functions/MergeCanopyPeat.R")
+source("src/functions/merge_canopy_peat.r")
 
 #' Process a single fire to extract burned and unburned pixel data
 #'
