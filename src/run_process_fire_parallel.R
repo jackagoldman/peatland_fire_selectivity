@@ -13,13 +13,11 @@ library(doParallel) # For parallel backend
 
 # Set file paths - UPDATE THESE WITH YOUR ACTUAL FILE PATHS
 dnbr_path <- ("")          # Path to folder containing DNBR .tif files (e.g., "/path/to/dnbr/")
-peatland_path <- ("")      # Path to peatland raster file (e.g., "/path/to/peatland.tif")
-canopy_path <- ("")        # Path to canopy raster file (e.g., "/path/to/canopy.tif")
+peatland_path <- ("")      # Path to merged peatland-canopy raster file (e.g., "/path/to/landcover.tif")
 progression_path <- ("")   # Path to fire progression shapefile (e.g., "/path/to/progression.shp")
 
 # Read in raster data
-peatland_data <- raster(peatland_path)                    # Load peatland classification raster
-canopy_data_classified <- raster(canopy_path)             # Load classified canopy raster
+peatland_data <- raster(peatland_path)                    # Load merged peatland-canopy land cover raster
 
 # Read in fire progression shapefile
 prog_poly <- st_read(progression_path)                    # Load fire progression polygons
@@ -42,7 +40,7 @@ registerDoParallel(cl)                                    # Register parallel ba
 # Run parallel processing for each fire
 # Note: Update 'prog_poly' in the foreach call if using a subset for testing
 results <- foreach(i = 1:nrow(prog_poly), .packages = c("raster", "sf")) %dopar% {
-  process_fire(i, prog_poly, canopy_data_classified, peatland_data)
+  process_fire(i, prog_poly, dnbr_path, peatland_data)
 }
 
 # Stop the parallel cluster

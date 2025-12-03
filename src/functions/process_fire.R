@@ -1,17 +1,15 @@
 # Function to process each fire
-source("src/functions/merge_canopy_peat.r")
 
 #' Process a single fire to extract burned and unburned pixel data
 #'
 #' This function processes a fire by its index in the progression polygon dataset,
 #' extracting land cover information for burned and unburned pixels within the fire boundary.
-#' It uses DNBR, canopy, and peatland rasters to identify and classify pixels.
+#' It uses DNBR and pre-merged peatland-canopy rasters to identify and classify pixels.
 #' Requires global variable `dnbr_path` set to the folder containing DNBR .tif files.
 #'
 #' @param i Integer index of the fire in prog_poly
 #' @param prog_poly sf data frame of fire progression polygons with columns like K_FireID, CLUSTERID, etc.
-#' @param canopy_data_classified RasterLayer of classified canopy data (output from reclassify_canopy)
-#' @param peatland_data RasterLayer of peatland data
+#' @param peatland_data RasterLayer of pre-merged peatland-canopy land cover data
 #' @return A data frame with rows for each pixel (burned and unburned), containing:
 #'   - Used: 1 for burned, 0 for unburned
 #'   - Lc_class: Land cover class (1-17 from merged peatland-canopy)
@@ -21,7 +19,7 @@ source("src/functions/merge_canopy_peat.r")
 #' @import sf raster 
 #' @export
 
-process_fire <- function(i, prog_poly, dnbr_path , canopy_data_classified, peatland_data) {
+process_fire <- function(i, prog_poly, dnbr_path , peatland_data) {
   require(sf)
   require(raster)
   poly <- prog_poly[i, ]
@@ -38,17 +36,8 @@ process_fire <- function(i, prog_poly, dnbr_path , canopy_data_classified, peatl
   #raster crs - retrieve CRS for later use in transforming points
   raster_crs = crs(dnbr_raster)
   
-  # Crop peatland and canopy rasters to DNBR extent - ensures only relevant area is processed
-  p_r = crop(peatland_data, dnbr_raster)
-  # crops canopy data to the same extent as peatland raster - this aligns the canopy data with peatland extent
-  c_r = crop(canopy_data_classified, st_bbox(p_r))
-
-
-  canopy_clip = raster::raster(vals = values(c_r), ext =raster::extent(p_r), crs= crs(p_r),
-                     nrows=dim(p_r)[1], ncols=dim(p_r)[2])
-  
-  # merge
-  peatland_raster = MergeCanopyPeat(p_r,canopy_clip)
+  # Crop peatland raster to DNBR extent - ensures only relevant area is processed
+  peatland_raster = crop(peatland_data, dnbr_raster)
   
   #dnbr
   dnbr_raster_res = resample(dnbr_raster, peatland_raster)
