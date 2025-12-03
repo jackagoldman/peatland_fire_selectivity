@@ -18,17 +18,19 @@ format:
 ```{r}
 library(terra)
 library(sf)
-library(parallel)
+library(doParallel)
+library(dplyr)
+library(foreach)
 ```
 
 Read in rasters
 
 ```{r}
-peatland_data <- rast("G:/Fire_Selectivity/NickPelletier - do not delete/Peat map Pontone/PeatlandMap8b_2023_07_17.tif")
+peatland_data <- raster::raster("G:/Fire_Selectivity/NickPelletier - do not delete/Peat map Pontone/PeatlandMap8b_2023_07_17.tif")
 
 canopy_path = ("W:/koreen/NickPelletier - do not delete/SCANFI/Reclass_SCAN4_1.tif")  
-canopy_data = ras(canopy_path)
-
+canopy_data = (canopy_path)
+dnbr_path = ("G:/Fire_Selectivity/NickPelletier - do not delete/dNBR rasters/")
 # Read in shapefile
 fire_prog <- st_read("G:/Fire_Selectivity/NickPelletier - do not delete/fire polygons 2023/landscape_processed_polygons_km_oct18.shp")        # Adjust path asneeded
 
@@ -58,13 +60,39 @@ writeRaster(canopy_data_classified, filename = "E:/Jack/data/peatland_fire_selec
 ```
 
 ```{r}
+
+  if (nlyr(peatland_data)>1) {
+    peatland_data = peatland_data[[1]]
+  }else {
+    print("1 layer")
+  }
+
+if (nlyr(canopy_data_classified)>1){
+  canopy_data_classified = canopy_data_classified[[1]]
+} else {
+  print("1 layer")
+}
+
+dnbr_test = raster::raster(paste0(dnbr_path, dnbr_files[[1]]))
+if(nlyr(dnbr_test)>1){
+  dnbr_test = dnbr_test[[1]]
+}else {
+  print("1 layer")
+}
+
+cat("crs peatland_data", crs(peatland_data), "\n")
+cat("crs canopy classified", crs(canopy_data_classified), "\n")
+cat("crs dnbr_test", crs(dnbr_test), "\n")
+```
+
+```{r}
 # Function to merge canopy and peat maps
 MergeCanopyPeat <- function(PeatlandMap, CanopyClosure) {
   
   r1 <- PeatlandMap
   r2 <- CanopyClosure
   
-  r3 <- rast(r1)
+  r3 <- raster(r1)
   
   # Fill based on conditions
   r3[r1 == 1 & r2 == 1] <- 1  # Open Bog
@@ -93,19 +121,49 @@ MergeCanopyPeat <- function(PeatlandMap, CanopyClosure) {
 }
 
 
+
 ```
 
 Function for getting pixels values
+
+```{r}
+canopy_data_classified = raster::raster("E:/Jack/data/peatland_fire_selectivity/scanfi/scanfi_canopy_data_classified_8bit.tif")
+
+```
+
+```{r}
+canopy_data_classified = crop(canopy_data_classified, ext(peatland_data))
+```
+
+```{r}
+p_r = crop(peatland_data, dnbr_test)
+i = !is.na(raster::minValue(p_r))
+print(raster::minValue(p_r))
+print(i)
+c_r = crop(canopy_data_classified, st_bbox(p_r))
+
+canopy_clip = raster::raster(vals = values(c_r), ext =raster::extent(p_r), crs= crs(p_r),
+                     nrows=dim(p_r)[1], ncols=dim(p_r)[2])
+
+canopy_raster = raster::resample(c_r, p_r, method = "near")
+
+MergeCanopyPeat(p_r, canopy_raster)
+```
 
 start list
 
 ```{r}
 # Get files from dnbr_raster folder
-dnbr_files <- list.files("G:/Fire_Selectivity/NickPelletier - do not delete/dNBR rasters/", pattern = "*_dnbr.tif$", full.names = TRUE)
-fire_ids <- sub("_dnbr.tif$", "", basename(dnbr_files))
+file_list <- list.files(dnbr_path)
+#filter files with ".shp" in the name
+dnbr_files = file_list[grep("dnbr", file_list)]
+
+fire_ids <- unique(gsub("_dnbr", "", gsub(".tif", "", dnbr_files))) 
 
 # Filter shapefile
 prog_poly <- fire_prog[fire_prog$K_FireID %in% fire_ids, ]
+# check duplicates
+cat("unique", length(unique(prog_poly$K_FireID)), "\n")
 ```
 
 Test data
@@ -125,7 +183,8 @@ function
 
 # Function to process each fire
 process_fire <- function(i, prog_poly, canopy_data_classified, peatland_data) {
-  require(c("sf", "terra"))
+  require(sf)
+  require(terra)
   poly <- prog_poly[i, ]
   
   # Transform polygon to CRS 4326 for centroids later
@@ -136,44 +195,66 @@ process_fire <- function(i, prog_poly, canopy_data_classified, peatland_data) {
   
   # Read corresponding DNBR raster
   dnbr_raster <- rast(paste0("G:/Fire_Selectivity/NickPelletier - do not delete/dNBR rasters/", k_fireid, "_dnbr.tif"))
+  #raster crs
+  raster_crs = crs(dnbr_raster)
   
-  # Ensure projections match for clipping
-  raster_crs <- crs(dnbr_raster)
-  if (!same.crs(canopy_data_classified, raster_crs)) {
-    canopy_data_classified_proj <- project(canopy_data_classified, raster_crs)
-  } else {
-    canopy_data_classified_proj <- canopy_data_classified
-  }
+  p_r = crop(peatland_data, dnbr_raster)
+  c_r = crop(canopy_data_classified, st_bbox(p_r))
+
+
+  canopy_raster = resample(c_r, p_r, method = "near")
   
-  if (!same.crs(peatland_data, raster_crs)) {
-    peatland_data_proj <- project(peatland_data, raster_crs)
-  } else {
-    peatland_data_proj <- peatland_data
-  }
+  # merge
+  peatland_raster = MergeCanopyPeat(p_r,canopy_raster)
   
-  # Transform polygon to raster CRS for clipping
-  poly_raster_crs <- st_transform(poly, raster_crs)
+  #dnbr
+  dnbr_raster_res = resample(dnbr_raster, peatland_raster)
+
+
   
-  # Clip rasters
-  canopy_clipped <- mask(canopy_data_classified_proj, poly_raster_crs)
-  peat_clipped <- mask(peatland_data_proj, poly_raster_crs)
-  
-  # Merge using function
-  merged <- MergeCanopyPeat(peat_clipped, canopy_clipped)
   
   # Find burned pixels (> 0.1)
   burned <- dnbr_raster > 0.1
-  burned_clipped <- mask(burned, poly_raster_crs)
   
+  #mask landc cover raster to burned areas
+  masked_peatland_raster = peatland_raster
+  masked_peatland_raster[!burned] = NA # contains land cover only in burned areas
+  
+  # rasterize polygon for spatial masking
+  polygon_raster = rasterize(polygon, peatland_raster)# conversts the fire progression polygon into a reask mask matching the grid of peatland_raster. Pixels inside the polygon are set to a value of 1 and outside toNA or 0. Create a spatial max for fire boundary
+  
+  #align extents to prevent cropping errors
+  polygon_raster = crop(polygon_raster, st_bbox(masked_peatland_raster))
+  masked_peatland_raster = crop(masked_peatland_raster, st_bb(polygon_raster)) # crops both rasters to each others bounding box to ensure identical extents, avoids errors from mismatched raster dimensions during masking, as mask requires aligned inputs.
+  
+  #final mask to the polygon boundary
+  burned_peatland_raster = mask(masked_peatland_raster, polygon_raster) # applis the polygon mask. setting pixels outside the polygon to NA. The results is a raster with alndcover values only for burned pixels inside the fire polygon.
+
   # Find unburned pixels (< 0.1)
-  unburned <- dnbr_raster < 0.1
-  unburned_clipped <- mask(unburned, poly_raster_crs)
+  unburned <- dnbr_raster < 0.1 #unburned mask
+  
+  #apply the mask for unburned pixels
+  masked_peatland_raster_ub = peatland_raster
+  masked_peatland_raster_ub[!unburned] = NA
+  
+  # cross crop using rasterized polygon from above
+  polygon_raster_ub = crop(polygon_raster, st_bbox(masked_peatland_raster_ub))
+  masked_peatland_raster_ub = crop(masked_peatland_raster_ub, st_bbox(polygon_raster_ub))
+  
+  #mask the raster with the polygon
+  unburned_peatland_raster = mask(masked_peatland_raster_ub, polygon_raster_ub) # unburned peatland raster with landcover values only for unburned pixels inside the fire polygon.
+  
+
+  
+  
+  
   
   # Get centroids for burned pixels
-  if (global(burned_clipped, "sum", na.rm = TRUE) > 0) {
-    burned_pts <- as.points(burned_clipped, values = TRUE)
+ 
+  if (global(burned_peatland_raster, "notNA", na.rm = TRUE) >0) {
+    burned_pts <- as.points(burned_peatland_raster, values = TRUE)
     coords_burned_raw <- crds(burned_pts)
-    lc_burned <- extract(merged, burned_pts)[, 2]
+    lc_burned <- burned_pts$lyr1
     burned_pts_sf <- st_as_sf(data.frame(x = coords_burned_raw[, 1], y = coords_burned_raw[, 2], lc = lc_burned), 
                               coords = c("x", "y"), crs = raster_crs)
     burned_pts_4326 <- st_transform(burned_pts_sf, 4326)
@@ -206,10 +287,10 @@ process_fire <- function(i, prog_poly, canopy_data_classified, peatland_data) {
   }
   
   # Get centroids for unburned pixels
-  if (global(unburned_clipped, "sum", na.rm = TRUE) > 0) {
-    unburned_pts <- as.points(unburned_clipped, values = TRUE)
+  if (global(unburned_peatland_raster, "notNA", na.rm =TRUE) >0) {
+    unburned_pts <- as.points(unburned_peatland_raster, values = TRUE)
     coords_unburned_raw <- crds(unburned_pts)
-    lc_unburned <- extract(merged, unburned_pts)[, 2]
+    lc_unburned <- unburned_pts$lyr1
     unburned_pts_sf <- st_as_sf(data.frame(x = coords_unburned_raw[, 1], y = coords_unburned_raw[, 2], lc = lc_unburned), 
                                 coords = c("x", "y"), crs = raster_crs)
     unburned_pts_4326 <- st_transform(unburned_pts_sf, 4326)
@@ -253,22 +334,29 @@ run script
 
 ```{r}
 # Parallel processing
-num_cores <- detectCores() - 1
-cl = makeCluster(num_cores)
-
-#export necessary objects to the cluster
-clusterExport(cl, c("process_fire", "test_pro_poly", "canopy_data_classified", "peatland_data"))
+num_clusters <- min(20, detectCores()-1)
+cl = makeCluster(num_clusters)
+registerDoParallel(cl)
 
 
-results <- parLapply(cl, 1:nrow(prog_poly), function(i) {
-  process_fire(i, prog_poly = test_pro_poly, 
-                    canopy_data_classified = canopy_data_classified, 
-                    peatland_data = peatland_data)
-})
+
+
+results <- foreach(i = 1:nrow(test_pro_poly), packages =c("terra", "sf")) %dopar% {
+  process_fire(i, test_pro_poly, canopy_data_classified, peatland_data)
+}
+
 
 stopCluster(cl)
 
 
+```
+
+```{r}
+results = list()
+for (i in 1:nrow(test_pro_poly)){
+  cat("Processing fire", i, "\n")
+  results[[i]] = process_fire(i, test_pro_poly, canopy_data_classified, peatland_data)
+}
 ```
 
 bind results and save
