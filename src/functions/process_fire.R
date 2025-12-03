@@ -6,18 +6,20 @@ source("src/functions/MergeCanopyPeat.R")
 #' This function processes a fire by its index in the progression polygon dataset,
 #' extracting land cover information for burned and unburned pixels within the fire boundary.
 #' It uses DNBR, canopy, and peatland rasters to identify and classify pixels.
+#' Requires global variable `dnbr_path` set to the folder containing DNBR .tif files.
 #'
 #' @param i Integer index of the fire in prog_poly
 #' @param prog_poly sf data frame of fire progression polygons with columns like K_FireID, CLUSTERID, etc.
-#' @param canopy_data_classified RasterLayer of classified canopy data
+#' @param canopy_data_classified RasterLayer of classified canopy data (output from reclassify_canopy)
 #' @param peatland_data RasterLayer of peatland data
 #' @return A data frame with rows for each pixel (burned and unburned), containing:
 #'   - Used: 1 for burned, 0 for unburned
-#'   - Lc_class: Land cover class
-#'   - X, Y: Longitude and latitude of pixel centroid
-#'   - P_size: Pixel area
+#'   - Lc_class: Land cover class (1-17 from merged peatland-canopy)
+#'   - X, Y: Longitude and latitude of pixel centroid (EPSG:4326)
+#'   - P_size: Pixel area in square units
 #'   - Fire_ID, K_UniqueID, CLUSTERID, AREA, C_AREA: Fire metadata
-#' @import sf raster
+#' @import sf raster 
+#' @export
 
 process_fire <- function(i, prog_poly, dnbr_path , canopy_data_classified, peatland_data) {
   require(sf)
