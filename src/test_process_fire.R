@@ -2,15 +2,15 @@ library(raster)
 library(sf)
 
 # set paths
-dnbr_path = ("")
-peatland_path = ("")
-canopy_path = ("")  
-progression_path = ("")
+dnbr_path = ("G:/Fire_Selectivity/NickPelletier - do not delete/dNBR rasters/")
+peatland_path = ("G:/Fire_Selectivity/NickPelletier - do not delete/Peat Map Pontone/PeatlandMap8b_2023_07_17.tif")
+canopy_path = ("E:/Jack/data/peatland_fire_selectivity/scanfi/scanfi_canopy_data_classified_8bit.tif")  
+progression_path = ("G:/Fire_Selectivity/NickPelletier - do not delete/polygons 2023/landscape_processed_polygons_km_oct18.shp")
 # read in rasters
 peatland_data <- raster(peatland_path)
 canopy_data_classified <- raster(canopy_path)  
 # read in fire progression shapefile
-prog_poly <- st_read(progression_path)
+fire_prog <- st_read(progression_path)
 
 # Get files from dnbr_raster folder
 file_list <- list.files(dnbr_path)
