@@ -9,7 +9,7 @@
 #'
 #' @param i Integer index of the fire in prog_poly
 #' @param prog_poly sf data frame of fire progression polygons with columns like K_FireID, CLUSTERID, etc.
-#' @param peatland_data RasterLayer of pre-merged peatland-canopy land cover data
+#' @param peatland_path Character string path to the pre-merged peatland-canopy raster file
 #' @return A data frame with rows for each pixel (burned and unburned), containing:
 #'   - Used: 1 for burned, 0 for unburned
 #'   - Lc_class: Land cover class (1-17 from merged peatland-canopy)
@@ -19,10 +19,19 @@
 #' @import sf raster 
 #' @export
 
-process_fire <- function(i, prog_poly, dnbr_path , peatland_data) {
+process_fire <- function(i, prog_poly, dnbr_path , peatland_path) {
   require(sf)
   require(raster)
-  poly <- prog_poly[i, ]
+  
+  # Create logs directory if it doesn't exist
+  dir.create("logs", showWarnings = FALSE)
+  
+  # Initialize error and fire logs
+  error_log_file <- "logs/error_log.txt"
+  fire_log_file <- paste0("logs/fire_log_", i, ".txt")
+  
+  tryCatch({
+    poly <- prog_poly[i, ]
   
   # Transform polygon to CRS 4326 for centroids later
   poly_4326 <- st_transform(poly, 4326)
@@ -33,11 +42,18 @@ process_fire <- function(i, prog_poly, dnbr_path , peatland_data) {
   # Read corresponding DNBR raster
   dnbr_raster <- raster(paste0(dnbr_path, k_fireid, "_dnbr.tif"))
   
+  # Load peatland raster
+  peatland_data <- raster(peatland_path)
+  
   #raster crs - retrieve CRS for later use in transforming points
   raster_crs = crs(dnbr_raster)
   
   # Crop peatland raster to DNBR extent - ensures only relevant area is processed
   peatland_raster = crop(peatland_data, dnbr_raster)
+  
+  # Discard the full peatland raster to free memory
+  peatland_data <- NULL
+  gc()  # Force garbage collection
   
   #dnbr
   dnbr_raster_res = resample(dnbr_raster, peatland_raster)
@@ -158,5 +174,34 @@ process_fire <- function(i, prog_poly, dnbr_path , peatland_data) {
   # add to df 
   fire_df$P_num <- ifelse(fire_df$Used == 1, burned_pixels, unburned_pixels)
   fire_df$P_total <- total_pixels
+  
+  # Log fire processing results
+  fire_log <- data.frame(
+    Fire_ID = k_fireid,
+    Burned_Pixels = burned_pixels,
+    Unburned_Pixels = unburned_pixels,
+    Total_Pixels = total_pixels
+  )
+  write.table(fire_log, file = fire_log_file, row.names = FALSE, col.names = TRUE, sep = "\t")
+  
   return(fire_df)
+  }, error = function(e) {
+    # Log error
+    error_msg <- paste("Error processing fire index", i, ":", e$message)
+    write(error_msg, file = error_log_file, append = TRUE)
+    # Return empty data frame
+    return(data.frame(
+      Used = integer(),
+      Lc_class = integer(),
+      X = numeric(),
+      Y = numeric(),
+      Fire_ID = character(),
+      K_UniqueID = character(),
+      CLUSTERID = character(),
+      AREA = numeric(),
+      C_AREA = numeric(),
+      P_num = integer(),
+      P_total = integer()
+    ))
+  })
 }

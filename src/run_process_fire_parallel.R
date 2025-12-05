@@ -21,7 +21,7 @@ peatland_path <- ("E:/Jack/data/peatland_fire_selectivity/Peat_Canopy_2023_11_06
 progression_path <- ("G:/Fire_Selectivity/NickPelletier - do not delete/fire polygons 2023/landscape_processed_polygons_km_oct18.shp")   # Path to fire progression shapefile (e.g., "/path/to/progression.shp")
 
 # Read in raster data
-peatland_data <- raster(peatland_path)                    # Load merged peatland-canopy land cover raster
+# peatland_data <- raster(peatland_path)                    # Load merged peatland-canopy land cover raster - moved to inside process_fire for efficiency
 
 # Read in fire progression shapefile
 prog_poly <- st_read(progression_path)                    # Load fire progression polygons
@@ -44,7 +44,7 @@ registerDoParallel(cl)                                    # Register parallel ba
 # Run parallel processing for each fire
 # Note: Update 'prog_poly' in the foreach call if using a subset for testing
 results <- foreach(i = 1:nrow(prog_poly), .packages = c("raster", "sf")) %dopar% {
-  process_fire(i, prog_poly, dnbr_path, peatland_data)
+  process_fire(i, prog_poly, dnbr_path, peatland_path)
 }
 
 # Stop the parallel cluster
