@@ -1,0 +1,27 @@
+
+# .renvignore
+# Big, non-source directories
+logs/
+data/raw/
+data/derived/
+outputs/
+reports/_cache/
+.Rproj.user/
+.git/
+.github/
+
+
+
+# File patterns frequently irrelevant to dependency scanning
+*.csv
+*.tsv
+*.feather
+*.parquet
+*.rds
+*.rda
+*.RData
+*.png
+*.jpg
+*.tif
+*.tiff
+*.pdf

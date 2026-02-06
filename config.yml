@@ -1,0 +1,5 @@
+default:
+  dnbr_path: "G:/Fire_Selectivity/NickPelletier - do not delete/dNBR rasters/"  # Path to folder containing DNBR .tif files (e.g., "/path/to/dnbr/")
+  peatland_path: "E:/Jack/data/peatland_fire_selectivity/Peat_Canopy_2023_11_06.tif"      # Path to merged peatland-canopy raster file (e.g., "/path/to/landcover.tif")
+  progression_path: "G:/Fire_Selectivity/NickPelletier - do not delete/fire polygons 2023/landscape_processed_polygons_km_oct18.shp"   # Path to fire progression shapefile (e.g., "/path/to/progression.shp")
+  worker_log: "logs/worker_log.txt"  # Path to worker log file (e.g., "logs/worker_log.txt")

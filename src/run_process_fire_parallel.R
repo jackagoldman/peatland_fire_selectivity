@@ -2,6 +2,9 @@
 # This script processes multiple fires concurrently using parallel computing
 # to extract burned/unburned pixel data for peatland fire selectivity analysis.
 
+# get defaults
+config <- config::get(file = "config.yml")
+
 # Source the main processing function
 # set working directory to the script's directory
 project_root <- getwd()
@@ -16,12 +19,9 @@ library(foreach) # For parallel loops
 library(doParallel) # For parallel backend
 
 # Set file paths - UPDATE THESE WITH YOUR ACTUAL FILE PATHS
-dnbr_path <- ("G:/Fire_Selectivity/NickPelletier - do not delete/dNBR rasters/")  # Path to folder containing DNBR .tif files (e.g., "/path/to/dnbr/")
-peatland_path <- ("E:/Jack/data/peatland_fire_selectivity/Peat_Canopy_2023_11_06.tif")      # Path to merged peatland-canopy raster file (e.g., "/path/to/landcover.tif")
-progression_path <- ("G:/Fire_Selectivity/NickPelletier - do not delete/fire polygons 2023/landscape_processed_polygons_km_oct18.shp")   # Path to fire progression shapefile (e.g., "/path/to/progression.shp")
-
-# Read in raster data
-# peatland_data <- raster(peatland_path)                    # Load merged peatland-canopy land cover raster - moved to inside process_fire for efficiency
+dnbr_path <- config$dnbr_path      # Path to DNBR raster files
+peatland_path <-config$peatland_path # Path to merged peatland-canopy land cover raster
+progression_path <- config$progression_path # Path to fire progression shapefile
 
 # Read in fire progression shapefile
 prog_poly <- st_read(progression_path)                    # Load fire progression polygons
@@ -38,7 +38,7 @@ prog_poly <- prog_poly[prog_poly$K_FireID %in% fire_ids, ]
 
 # Set up parallel processing
 num_clusters <- min(10, detectCores() - 1)               # Use up to 20 cores or available-1
-cl <- makeCluster(num_clusters, ,outfile = "logs/worker_log.txt")   # Create cluster
+cl <- makeCluster(num_clusters, outfile = config$worker_log)   # Create cluster
 registerDoParallel(cl)                                    # Register parallel backend
 
 # Run parallel processing for each fire
