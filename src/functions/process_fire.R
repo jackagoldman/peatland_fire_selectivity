@@ -38,6 +38,7 @@ process_fire <- function(i, prog_poly, dnbr_path , peatland_path) {
   
   k_fireid <- poly$K_FireID # for matchin dnbr files
   cluster_id <- poly$CLUSTERID # so we only work on one cluster at a time for a given fire
+  k_uniqueid <- poly$K_UniqueID
   
   # Read corresponding DNBR raster
   dnbr_raster <- raster(paste0(dnbr_path, k_fireid, "_dnbr.tif"))
@@ -178,11 +179,18 @@ process_fire <- function(i, prog_poly, dnbr_path , peatland_path) {
   # Log fire processing results
   fire_log <- data.frame(
     Fire_ID = k_fireid,
+    K_UniqueID = k_uniqueid,
     Burned_Pixels = burned_pixels,
     Unburned_Pixels = unburned_pixels,
     Total_Pixels = total_pixels
   )
   write.table(fire_log, file = fire_log_file, row.names = FALSE, col.names = TRUE, sep = "\t")
+  
+  #output file name
+  df_location <- "data/per_fire/"
+  df_fname <- paste0(df_location, k_fireid, "_used_available.csv")
+ 
+
   
   return(fire_df)
   }, error = function(e) {

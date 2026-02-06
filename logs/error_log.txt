@@ -1,0 +1,54 @@
+Error processing fire index 210 : [readValues] cannot read values
+Error processing fire index 331 : arguments imply differing number of rows: 1, 0
+Error processing fire index 624 : arguments imply differing number of rows: 1, 0
+Error processing fire index 669 : [readValues] cannot read values
+Error processing fire index 682 : [readValues] cannot read values
+Error processing fire index 686 : [readValues] cannot read values
+Error processing fire index 780 : arguments imply differing number of rows: 1, 0
+Error processing fire index 855 : [readValues] cannot read values
+Error processing fire index 857 : [readValues] cannot read values
+Error processing fire index 939 : incorrect number of dimensions
+Error processing fire index 985 : [readValues] cannot read values
+Error processing fire index 1107 : [readValues] cannot read values
+Error processing fire index 1220 : [readValues] cannot read values
+Error processing fire index 1358 : [readValues] cannot read values
+Error processing fire index 1391 : [readValues] cannot read values
+Error processing fire index 1498 : [readValues] cannot read values
+Error processing fire index 1570 : [readValues] cannot read values
+Error processing fire index 1806 : [readValues] cannot read values
+Error processing fire index 1862 : [readValues] cannot read values
+Error processing fire index 1883 : [readValues] cannot read values
+Error processing fire index 1944 : incorrect number of dimensions
+Error processing fire index 2003 : [readValues] cannot read values
+Error processing fire index 2004 : [readValues] cannot read values
+Error processing fire index 2106 : [readValues] cannot read values
+Error processing fire index 2141 : [readValues] cannot read values
+Error processing fire index 2393 : [readValues] cannot read values
+Error processing fire index 2450 : [readValues] cannot read values
+Error processing fire index 2503 : [readValues] cannot read values
+Error processing fire index 2550 : [readValues] cannot read values
+Error processing fire index 2704 : [readValues] cannot read values
+Error processing fire index 2784 : [readValues] cannot read values
+Error processing fire index 3022 : [readValues] cannot read values
+Error processing fire index 3105 : [readValues] cannot read values
+Error processing fire index 3175 : [readValues] cannot read values
+Error processing fire index 3180 : [readValues] cannot read values
+Error processing fire index 3226 : [readValues] cannot read values
+Error processing fire index 3378 : [readValues] cannot read values
+Error processing fire index 3522 : [readValues] cannot read values
+Error processing fire index 3567 : arguments imply differing number of rows: 1, 0
+Error processing fire index 3763 : [readValues] cannot read values
+Error processing fire index 3796 : [readValues] cannot read values
+Error processing fire index 4022 : arguments imply differing number of rows: 1, 0
+Error processing fire index 4166 : incorrect number of dimensions
+Error processing fire index 4416 : arguments imply differing number of rows: 1, 0
+Error processing fire index 4561 : arguments imply differing number of rows: 1, 0
+Error processing fire index 5030 : arguments imply differing number of rows: 1, 0
+Error processing fire index 5253 : arguments imply differing number of rows: 1, 0
+Error processing fire index 5939 : incorrect number of dimensions
+Error processing fire index 5953 : arguments imply differing number of rows: 1, 0
+Error processing fire index 5959 : arguments imply differing number of rows: 1, 0
+Error processing fire index 6107 : arguments imply differing number of rows: 1, 0
+Error processing fire index 6347 : incorrect number of dimensions
+Error processing fire index 6481 : arguments imply differing number of rows: 1, 0
+Error processing fire index 6564 : arguments imply differing number of rows: 1, 0
