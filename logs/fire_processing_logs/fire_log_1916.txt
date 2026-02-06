@@ -1,0 +1,2 @@
+"Fire_ID"	"K_UniqueID"	"Burned_Pixels"	"Unburned_Pixels"	"Total_Pixels"
+224	2718	2431	48370	50801

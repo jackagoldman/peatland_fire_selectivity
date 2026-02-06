@@ -1,0 +1,2 @@
+"Fire_ID"	"K_UniqueID"	"Burned_Pixels"	"Unburned_Pixels"	"Total_Pixels"
+682	9752	22289	424699	446988

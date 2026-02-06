@@ -1,0 +1,2 @@
+"Fire_ID"	"K_UniqueID"	"Burned_Pixels"	"Unburned_Pixels"	"Total_Pixels"
+338	1173	114390	428347	542737

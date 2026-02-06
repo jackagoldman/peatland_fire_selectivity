@@ -1,0 +1,2 @@
+"Fire_ID"	"K_UniqueID"	"Burned_Pixels"	"Unburned_Pixels"	"Total_Pixels"
+54	2864	31349	57893	89242

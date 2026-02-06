@@ -1,0 +1,2 @@
+"Fire_ID"	"K_UniqueID"	"Burned_Pixels"	"Unburned_Pixels"	"Total_Pixels"
+30	4302	27474	56943	84417

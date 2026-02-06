@@ -1,0 +1,578 @@
+starting worker pid=23260 on localhost:11735 at 08:27:13.674
+starting worker pid=19092 on localhost:11735 at 08:27:13.691
+starting worker pid=20268 on localhost:11735 at 08:27:13.704
+starting worker pid=25472 on localhost:11735 at 08:27:13.705
+starting worker pid=28004 on localhost:11735 at 08:27:13.711
+starting worker pid=24480 on localhost:11735 at 08:27:13.713
+starting worker pid=26424 on localhost:11735 at 08:27:13.724
+starting worker pid=21568 on localhost:11735 at 08:27:13.728
+starting worker pid=19524 on localhost:11735 at 08:27:13.731
+starting worker pid=26796 on localhost:11735 at 08:27:13.739
+starting worker pid=27348 on localhost:11735 at 08:27:13.741
+starting worker pid=28328 on localhost:11735 at 08:27:13.742
+starting worker pid=27276 on localhost:11735 at 08:27:13.752
+starting worker pid=21460 on localhost:11735 at 08:27:13.756
+starting worker pid=27664 on localhost:11735 at 08:27:13.756
+starting worker pid=21580 on localhost:11735 at 08:27:13.761
+starting worker pid=9736 on localhost:11735 at 08:27:13.766
+starting worker pid=9224 on localhost:11735 at 08:27:13.769
+starting worker pid=28336 on localhost:11735 at 08:27:13.780
+Loading required package: sp
+Loading required package: sp
+Linking to GEOS 3.13.1, GDAL 3.11.0, PROJ 9.6.0; sf_use_s2() is TRUE
+Loading required package: sp
+Linking to GEOS 3.13.1, GDAL 3.11.0, PROJ 9.6.0; sf_use_s2() is TRUE
+Loading required package: sp
+Linking to GEOS 3.13.1, GDAL 3.11.0, PROJ 9.6.0; sf_use_s2() is TRUE
+Loading required package: sp
+Linking to GEOS 3.13.1, GDAL 3.11.0, PROJ 9.6.0; sf_use_s2() is TRUE
+Loading required package: sp
+Linking to GEOS 3.13.1, GDAL 3.11.0, PROJ 9.6.0; sf_use_s2() is TRUE
+Loading required package: sp
+Linking to GEOS 3.13.1, GDAL 3.11.0, PROJ 9.6.0; sf_use_s2() is TRUE
+Loading required package: sp
+Linking to GEOS 3.13.1, GDAL 3.11.0, PROJ 9.6.0; sf_use_s2() is TRUE
+Loading required package: sp
+Linking to GEOS 3.13.1, GDAL 3.11.0, PROJ 9.6.0; sf_use_s2() is TRUE
+Loading required package: sp
+Linking to GEOS 3.13.1, GDAL 3.11.0, PROJ 9.6.0; sf_use_s2() is TRUE
+Loading required package: sp
+Linking to GEOS 3.13.1, GDAL 3.11.0, PROJ 9.6.0; sf_use_s2() is TRUE
+Loading required package: sp
+Linking to GEOS 3.13.1, GDAL 3.11.0, PROJ 9.6.0; sf_use_s2() is TRUE
+Linking to GEOS 3.13.1, GDAL 3.11.0, PROJ 9.6.0; sf_use_s2() is TRUE
+Loading required package: sp
+Loading required package: sp
+Linking to GEOS 3.13.1, GDAL 3.11.0, PROJ 9.6.0; sf_use_s2() is TRUE
+Linking to GEOS 3.13.1, GDAL 3.11.0, PROJ 9.6.0; sf_use_s2() is TRUE
+Loading required package: sp
+Loading required package: sp
+Linking to GEOS 3.13.1, GDAL 3.11.0, PROJ 9.6.0; sf_use_s2() is TRUE
+Linking to GEOS 3.13.1, GDAL 3.11.0, PROJ 9.6.0; sf_use_s2() is TRUE
+Loading required package: sp
+Linking to GEOS 3.13.1, GDAL 3.11.0, PROJ 9.6.0; sf_use_s2() is TRUE
+Loading required package: sp
+Loading required package: sp
+Linking to GEOS 3.13.1, GDAL 3.11.0, PROJ 9.6.0; sf_use_s2() is TRUE
+Loading required package: sp
+Linking to GEOS 3.13.1, GDAL 3.11.0, PROJ 9.6.0; sf_use_s2() is TRUE
+Linking to GEOS 3.13.1, GDAL 3.11.0, PROJ 9.6.0; sf_use_s2() is TRUE
+starting worker pid=15732 on localhost:11875 at 08:57:46.790
+starting worker pid=11680 on localhost:11875 at 08:57:46.799
+starting worker pid=2312 on localhost:11875 at 08:57:46.835
+starting worker pid=4500 on localhost:11875 at 08:57:46.836
+starting worker pid=16128 on localhost:11875 at 08:57:46.837
+starting worker pid=11304 on localhost:11875 at 08:57:46.841
+starting worker pid=15848 on localhost:11875 at 08:57:46.842
+starting worker pid=11288 on localhost:11875 at 08:57:46.843
+starting worker pid=11336 on localhost:11875 at 08:57:46.843
+starting worker pid=16288 on localhost:11875 at 08:57:46.847
+Loading required package: sp
+Loading required package: sp
+Linking to GEOS 3.13.1, GDAL 3.11.0, PROJ 9.6.0; sf_use_s2() is TRUE
+Loading required package: sp
+Linking to GEOS 3.13.1, GDAL 3.11.0, PROJ 9.6.0; sf_use_s2() is TRUE
+Loading required package: sp
+Linking to GEOS 3.13.1, GDAL 3.11.0, PROJ 9.6.0; sf_use_s2() is TRUE
+Loading required package: sp
+Linking to GEOS 3.13.1, GDAL 3.11.0, PROJ 9.6.0; sf_use_s2() is TRUE
+Loading required package: sp
+Linking to GEOS 3.13.1, GDAL 3.11.0, PROJ 9.6.0; sf_use_s2() is TRUE
+Loading required package: sp
+Linking to GEOS 3.13.1, GDAL 3.11.0, PROJ 9.6.0; sf_use_s2() is TRUE
+Loading required package: sp
+Linking to GEOS 3.13.1, GDAL 3.11.0, PROJ 9.6.0; sf_use_s2() is TRUE
+Loading required package: sp
+Linking to GEOS 3.13.1, GDAL 3.11.0, PROJ 9.6.0; sf_use_s2() is TRUE
+Linking to GEOS 3.13.1, GDAL 3.11.0, PROJ 9.6.0; sf_use_s2() is TRUE
+Loading required package: sp
+Linking to GEOS 3.13.1, GDAL 3.11.0, PROJ 9.6.0; sf_use_s2() is TRUE
+starting worker pid=10996 on localhost:11066 at 15:49:09.461
+starting worker pid=11096 on localhost:11066 at 15:49:09.473
+starting worker pid=12792 on localhost:11066 at 15:49:09.480
+starting worker pid=6112 on localhost:11066 at 15:49:09.485
+starting worker pid=17832 on localhost:11066 at 15:49:09.490
+starting worker pid=22664 on localhost:11066 at 15:49:09.490
+starting worker pid=10316 on localhost:11066 at 15:49:09.492
+starting worker pid=13152 on localhost:11066 at 15:49:09.496
+starting worker pid=23956 on localhost:11066 at 15:49:09.500
+Loading required package: sp
+Loading required package: sp
+Linking to GEOS 3.13.1, GDAL 3.11.0, PROJ 9.6.0; sf_use_s2() is TRUE
+Loading required package: sp
+Linking to GEOS 3.13.1, GDAL 3.11.0, PROJ 9.6.0; sf_use_s2() is TRUE
+Loading required package: sp
+Linking to GEOS 3.13.1, GDAL 3.11.0, PROJ 9.6.0; sf_use_s2() is TRUE
+Loading required package: sp
+Linking to GEOS 3.13.1, GDAL 3.11.0, PROJ 9.6.0; sf_use_s2() is TRUE
+Loading required package: sp
+Linking to GEOS 3.13.1, GDAL 3.11.0, PROJ 9.6.0; sf_use_s2() is TRUE
+Loading required package: sp
+Linking to GEOS 3.13.1, GDAL 3.11.0, PROJ 9.6.0; sf_use_s2() is TRUE
+Loading required package: sp
+Linking to GEOS 3.13.1, GDAL 3.11.0, PROJ 9.6.0; sf_use_s2() is TRUE
+Linking to GEOS 3.13.1, GDAL 3.11.0, PROJ 9.6.0; sf_use_s2() is TRUE
+Loading required package: sp
+Loading required package: sp
+Linking to GEOS 3.13.1, GDAL 3.11.0, PROJ 9.6.0; sf_use_s2() is TRUE
+Linking to GEOS 3.13.1, GDAL 3.11.0, PROJ 9.6.0; sf_use_s2() is TRUE
+OGR: Unsupported geometry type
+There were 50 or more warnings (use warnings() to see the first 50)There were 50 or more warnings (use warnings() to see the first 50)
+
+ere were 50 or more warnings (use warnings() to see the first 50)
+There were 50 or more warnings (use warnings() to see the first 50)
+There were 50 or more warnings (use warnings() to see the first 50)
+starting worker pid=19516 on localhost:11124 at 16:54:40.873
+Loading required package: sp
+Loading required package: sp
+Linking to GEOS 3.13.1, GDAL 3.11.0, PROJ 9.6.0; sf_use_s2() is TRUE
+Loading required package: sp
+Linking to GEOS 3.13.1, GDAL 3.11.0, PROJ 9.6.0; sf_use_s2() is TRUE
+Loading required package: sp
+Linking to GEOS 3.13.1, GDAL 3.11.0, PROJ 9.6.0; sf_use_s2() is TRUE
+Linking to GEOS 3.13.1, GDAL 3.11.0, PROJ 9.6.0; sf_use_s2() is TRUE
+Loading required package: sp
+Loading required package: sp
+Linking to GEOS 3.13.1, GDAL 3.11.0, PROJ 9.6.0; sf_use_s2() is TRUE
+Loading required package: sp
+Linking to GEOS 3.13.1, GDAL 3.11.0, PROJ 9.6.0; sf_use_s2() is TRUE
+Loading required package: sp
+Linking to GEOS 3.13.1, GDAL 3.11.0, PROJ 9.6.0; sf_use_s2() is TRUE
+Loading required package: sp
+Linking to GEOS 3.13.1, GDAL 3.11.0, PROJ 9.6.0; sf_use_s2() is TRUE
+Loading required package: sp
+Linking to GEOS 3.13.1, GDAL 3.11.0, PROJ 9.6.0; sf_use_s2() is TRUE
+Linking to GEOS 3.13.1, GDAL 3.11.0, PROJ 9.6.0; sf_use_s2() is TRUE
+OGR: Unsupported geometry type
+OGR: Not enough data 
+OGR: Not enough data 
+OGR: Unsupported geometry type
+starting worker pid=20004 on localhost:11976 at 14:03:26.244
+starting worker pid=22312 on localhost:11976 at 14:03:26.242
+starting worker pid=18664 on localhost:11976 at 14:03:26.263
+starting worker pid=3036 on localhost:11976 at 14:03:26.263
+starting worker pid=29664 on localhost:11976 at 14:03:26.263
+starting worker pid=22384 on localhost:11976 at 14:03:26.267
+starting worker pid=28060 on localhost:11976 at 14:03:26.268
+starting worker pid=25272 on localhost:11976 at 14:03:26.274
+Loading required package: sp
+Loading required package: sp
+Linking to GEOS 3.13.1, GDAL 3.11.0, PROJ 9.6.0; sf_use_s2() is TRUE
+Loading required package: sp
+Linking to GEOS 3.13.1, GDAL 3.11.0, PROJ 9.6.0; sf_use_s2() is TRUE
+Loading required package: sp
+Linking to GEOS 3.13.1, GDAL 3.11.0, PROJ 9.6.0; sf_use_s2() is TRUE
+Loading required package: sp
+Linking to GEOS 3.13.1, GDAL 3.11.0, PROJ 9.6.0; sf_use_s2() is TRUE
+Loading required package: sp
+Linking to GEOS 3.13.1, GDAL 3.11.0, PROJ 9.6.0; sf_use_s2() is TRUE
+Loading required package: sp
+Linking to GEOS 3.13.1, GDAL 3.11.0, PROJ 9.6.0; sf_use_s2() is TRUE
+Loading required package: sp
+Linking to GEOS 3.13.1, GDAL 3.11.0, PROJ 9.6.0; sf_use_s2() is TRUE
+Loading required package: sp
+Linking to GEOS 3.13.1, GDAL 3.11.0, PROJ 9.6.0; sf_use_s2() is TRUE
+Loading required package: sp
+Linking to GEOS 3.13.1, GDAL 3.11.0, PROJ 9.6.0; sf_use_s2() is TRUE
+Linking to GEOS 3.13.1, GDAL 3.11.0, PROJ 9.6.0; sf_use_s2() is TRUE
+starting worker pid=5124 on localhost:11250 at 14:04:37.938
+starting worker pid=8696 on localhost:11250 at 14:04:37.941
+starting worker pid=24220 on localhost:11250 at 14:04:37.950
+starting worker pid=31056 on localhost:11250 at 14:04:37.953
+starting worker pid=29536 on localhost:11250 at 14:04:37.965
+starting worker pid=7308 on localhost:11250 at 14:04:37.968
+starting worker pid=26568 on localhost:11250 at 14:04:37.975
+starting worker pid=15504 on localhost:11250 at 14:04:37.978
+starting worker pid=15700 on localhost:11250 at 14:04:37.980
+starting worker pid=31288 on localhost:11250 at 14:04:37.987
+Loading required package: sp
+Loading required package: sp
+Linking to GEOS 3.13.1, GDAL 3.11.0, PROJ 9.6.0; sf_use_s2() is TRUE
+Linking to GEOS 3.13.1, GDAL 3.11.0, PROJ 9.6.0; sf_use_s2() is TRUE
+Loading required package: sp
+Loading required package: sp
+Linking to GEOS 3.13.1, GDAL 3.11.0, PROJ 9.6.0; sf_use_s2() is TRUE
+Loading required package: sp
+Linking to GEOS 3.13.1, GDAL 3.11.0, PROJ 9.6.0; sf_use_s2() is TRUE
+Loading required package: sp
+Linking to GEOS 3.13.1, GDAL 3.11.0, PROJ 9.6.0; sf_use_s2() is TRUE
+Linking to GEOS 3.13.1, GDAL 3.11.0, PROJ 9.6.0; sf_use_s2() is TRUE
+Loading required package: sp
+Loading required package: sp
+Linking to GEOS 3.13.1, GDAL 3.11.0, PROJ 9.6.0; sf_use_s2() is TRUE
+Linking to GEOS 3.13.1, GDAL 3.11.0, PROJ 9.6.0; sf_use_s2() is TRUE
+Loading required package: sp
+Loading required package: sp
+Linking to GEOS 3.13.1, GDAL 3.11.0, PROJ 9.6.0; sf_use_s2() is TRUE
+Linking to GEOS 3.13.1, GDAL 3.11.0, PROJ 9.6.0; sf_use_s2() is TRUE
+starting worker pid=26240 on localhost:11969 at 14:05:51.593
+starting worker pid=3756 on localhost:11969 at 14:05:51.598
+starting worker pid=27224 on localhost:11969 at 14:05:51.599
+starting worker pid=9324 on localhost:11969 at 14:05:51.605
+starting worker pid=12984 on localhost:11969 at 14:05:51.617
+starting worker pid=23680 on localhost:11969 at 14:05:51.617
+starting worker pid=21220 on localhost:11969 at 14:05:51.619
+starting worker pid=30856 on localhost:11969 at 14:05:51.620
+starting worker pid=16216 on localhost:11969 at 14:05:51.621
+starting worker pid=10232 on localhost:11969 at 14:05:51.623
+Loading required package: sp
+Loading required package: sp
+Linking to GEOS 3.13.1, GDAL 3.11.0, PROJ 9.6.0; sf_use_s2() is TRUE
+Loading required package: sp
+Linking to GEOS 3.13.1, GDAL 3.11.0, PROJ 9.6.0; sf_use_s2() is TRUE
+Loading required package: sp
+Linking to GEOS 3.13.1, GDAL 3.11.0, PROJ 9.6.0; sf_use_s2() is TRUE
+Linking to GEOS 3.13.1, GDAL 3.11.0, PROJ 9.6.0; sf_use_s2() is TRUE
+Loading required package: sp
+Linking to GEOS 3.13.1, GDAL 3.11.0, PROJ 9.6.0; sf_use_s2() is TRUE
+Loading required package: sp
+Loading required package: sp
+Linking to GEOS 3.13.1, GDAL 3.11.0, PROJ 9.6.0; sf_use_s2() is TRUE
+Linking to GEOS 3.13.1, GDAL 3.11.0, PROJ 9.6.0; sf_use_s2() is TRUE
+Loading required package: sp
+Linking to GEOS 3.13.1, GDAL 3.11.0, PROJ 9.6.0; sf_use_s2() is TRUE
+Loading required package: sp
+Linking to GEOS 3.13.1, GDAL 3.11.0, PROJ 9.6.0; sf_use_s2() is TRUE
+Loading required package: sp
+Linking to GEOS 3.13.1, GDAL 3.11.0, PROJ 9.6.0; sf_use_s2() is TRUE
+OGR: Not enough data 
+OGR: Corrupt data
+OGR: Not enough data 
+There were 50 or more warnings (use warnings() to see the first 50)
+
+
+There were 50 or more warnings (use warnings() to see the first 50)
+There were 50 or more warnings (use warnings() to see the first 50)Th
+e were 50 or more warnings (use warnings() to see the first 50)
+starting worker pid=24268 on localhost:11687 at 15:09:06.926
+starting worker pid=26348 on localhost:11687 at 15:09:06.953
+starting worker pid=30924 on localhost:11687 at 15:09:06.954
+starting worker pid=20760 on localhost:11687 at 15:09:06.955
+starting worker pid=18776 on localhost:11687 at 15:09:06.957
+Loading required package: sp
+Linking to GEOS 3.13.1, GDAL 3.11.0, PROJ 9.6.0; sf_use_s2() is TRUE
+Loading required package: sp
+Linking to GEOS 3.13.1, GDAL 3.11.0, PROJ 9.6.0; sf_use_s2() is TRUE
+Loading required package: sp
+Linking to GEOS 3.13.1, GDAL 3.11.0, PROJ 9.6.0; sf_use_s2() is TRUE
+Loading required package: sp
+Linking to GEOS 3.13.1, GDAL 3.11.0, PROJ 9.6.0; sf_use_s2() is TRUE
+Loading required package: sp
+Linking to GEOS 3.13.1, GDAL 3.11.0, PROJ 9.6.0; sf_use_s2() is TRUE
+Loading required package: sp
+Linking to GEOS 3.13.1, GDAL 3.11.0, PROJ 9.6.0; sf_use_s2() is TRUE
+Loading required package: sp
+Loading required package: sp
+Linking to GEOS 3.13.1, GDAL 3.11.0, PROJ 9.6.0; sf_use_s2() is TRUE
+Loading required package: sp
+Linking to GEOS 3.13.1, GDAL 3.11.0, PROJ 9.6.0; sf_use_s2() is TRUE
+Loading required package: sp
+Linking to GEOS 3.13.1, GDAL 3.11.0, PROJ 9.6.0; sf_use_s2() is TRUE
+Linking to GEOS 3.13.1, GDAL 3.11.0, PROJ 9.6.0; sf_use_s2() is TRUE
+starting worker pid=19144 on localhost:11133 at 15:15:52.856
+starting worker pid=25120 on localhost:11133 at 15:15:52.860
+starting worker pid=1396 on localhost:11133 at 15:15:52.873
+starting worker pid=17968 on localhost:11133 at 15:15:52.876
+starting worker pid=18296 on localhost:11133 at 15:15:52.887
+starting worker pid=7812 on localhost:11133 at 15:15:52.892
+starting worker pid=22180 on localhost:11133 at 15:15:52.896
+starting worker pid=19104 on localhost:11133 at 15:15:52.896
+starting worker pid=28048 on localhost:11133 at 15:15:52.900
+starting worker pid=22760 on localhost:11133 at 15:15:52.902
+Loading required package: sp
+Linking to GEOS 3.13.1, GDAL 3.11.0, PROJ 9.6.0; sf_use_s2() is TRUE
+Loading required package: sp
+Loading required package: sp
+Linking to GEOS 3.13.1, GDAL 3.11.0, PROJ 9.6.0; sf_use_s2() is TRUE
+Loading required package: sp
+Linking to GEOS 3.13.1, GDAL 3.11.0, PROJ 9.6.0; sf_use_s2() is TRUE
+Linking to GEOS 3.13.1, GDAL 3.11.0, PROJ 9.6.0; sf_use_s2() is TRUE
+Loading required package: sp
+Linking to GEOS 3.13.1, GDAL 3.11.0, PROJ 9.6.0; sf_use_s2() is TRUE
+Loading required package: sp
+Loading required package: sp
+Linking to GEOS 3.13.1, GDAL 3.11.0, PROJ 9.6.0; sf_use_s2() is TRUE
+Linking to GEOS 3.13.1, GDAL 3.11.0, PROJ 9.6.0; sf_use_s2() is TRUE
+Loading required package: sp
+Loading required package: sp
+Linking to GEOS 3.13.1, GDAL 3.11.0, PROJ 9.6.0; sf_use_s2() is TRUE
+Loading required package: sp
+Linking to GEOS 3.13.1, GDAL 3.11.0, PROJ 9.6.0; sf_use_s2() is TRUE
+Linking to GEOS 3.13.1, GDAL 3.11.0, PROJ 9.6.0; sf_use_s2() is TRUE
+starting worker pid=28508 on localhost:11631 at 22:01:07.802
+starting worker pid=27144 on localhost:11631 at 22:01:07.789
+starting worker pid=3500 on localhost:11631 at 22:01:07.789
+starting worker pid=16104 on localhost:11631 at 22:01:07.804
+starting worker pid=31124 on localhost:11631 at 22:01:07.807
+starting worker pid=13896 on localhost:11631 at 22:01:07.812
+starting worker pid=29668 on localhost:11631 at 22:01:07.817
+starting worker pid=4092 on localhost:11631 at 22:01:07.819
+starting worker pid=26052 on localhost:11631 at 22:01:07.826
+starting worker pid=17288 on localhost:11631 at 22:01:07.831
+Loading required package: sp
+Linking to GEOS 3.13.1, GDAL 3.11.0, PROJ 9.6.0; sf_use_s2() is TRUE
+Loading required package: sp
+Loading required package: sp
+Linking to GEOS 3.13.1, GDAL 3.11.0, PROJ 9.6.0; sf_use_s2() is TRUE
+Linking to GEOS 3.13.1, GDAL 3.11.0, PROJ 9.6.0; sf_use_s2() is TRUE
+Loading required package: sp
+Loading required package: sp
+Linking to GEOS 3.13.1, GDAL 3.11.0, PROJ 9.6.0; sf_use_s2() is TRUE
+Loading required package: sp
+Linking to GEOS 3.13.1, GDAL 3.11.0, PROJ 9.6.0; sf_use_s2() is TRUE
+Linking to GEOS 3.13.1, GDAL 3.11.0, PROJ 9.6.0; sf_use_s2() is TRUE
+Loading required package: sp
+Loading required package: sp
+Linking to GEOS 3.13.1, GDAL 3.11.0, PROJ 9.6.0; sf_use_s2() is TRUE
+Loading required package: sp
+Linking to GEOS 3.13.1, GDAL 3.11.0, PROJ 9.6.0; sf_use_s2() is TRUE
+Loading required package: sp
+Linking to GEOS 3.13.1, GDAL 3.11.0, PROJ 9.6.0; sf_use_s2() is TRUE
+Linking to GEOS 3.13.1, GDAL 3.11.0, PROJ 9.6.0; sf_use_s2() is TRUE
+The tzdb package is not installed. Timezones will not be available to Arrow compute functions.
+The tzdb package is not installed. Timezones will not be available to Arrow compute functions.
+The tzdb package is not installed. Timezones will not be available to Arrow compute functions.
+The tzdb package is not installed. Timezones will not be available to Arrow compute functions.
+The tzdb package is not installed. Timezones will not be available to Arrow compute functions.
+The tzdb package is not installed. Timezones will not be available to Arrow compute functions.
+starting worker pid=14640 on localhost:11532 at 22:03:05.995
+starting worker pid=29648 on localhost:11532 at 22:03:05.998
+starting worker pid=31716 on localhost:11532 at 22:03:06.000
+starting worker pid=5032 on localhost:11532 at 22:03:06.007
+starting worker pid=19384 on localhost:11532 at 22:03:06.014
+starting worker pid=31628 on localhost:11532 at 22:03:06.015
+starting worker pid=24868 on localhost:11532 at 22:03:06.016
+starting worker pid=24192 on localhost:11532 at 22:03:06.029
+starting worker pid=28288 on localhost:11532 at 22:03:06.032
+starting worker pid=21696 on localhost:11532 at 22:03:06.034
+Loading required package: sp
+Loading required package: sp
+Linking to GEOS 3.13.1, GDAL 3.11.0, PROJ 9.6.0; sf_use_s2() is TRUE
+Linking to GEOS 3.13.1, GDAL 3.11.0, PROJ 9.6.0; sf_use_s2() is TRUE
+Loading required package: sp
+Loading required package: sp
+Linking to GEOS 3.13.1, GDAL 3.11.0, PROJ 9.6.0; sf_use_s2() is TRUE
+Linking to GEOS 3.13.1, GDAL 3.11.0, PROJ 9.6.0; sf_use_s2() is TRUE
+Loading required package: sp
+Loading required package: sp
+Linking to GEOS 3.13.1, GDAL 3.11.0, PROJ 9.6.0; sf_use_s2() is TRUE
+Loading required package: sp
+Linking to GEOS 3.13.1, GDAL 3.11.0, PROJ 9.6.0; sf_use_s2() is TRUE
+Loading required package: sp
+Linking to GEOS 3.13.1, GDAL 3.11.0, PROJ 9.6.0; sf_use_s2() is TRUE
+Loading required package: sp
+Linking to GEOS 3.13.1, GDAL 3.11.0, PROJ 9.6.0; sf_use_s2() is TRUE
+Loading required package: sp
+Linking to GEOS 3.13.1, GDAL 3.11.0, PROJ 9.6.0; sf_use_s2() is TRUE
+Linking to GEOS 3.13.1, GDAL 3.11.0, PROJ 9.6.0; sf_use_s2() is TRUE
+The tzdb package is not installed. Timezones will not be available to Arrow compute functions.
+The tzdb package is not installed. Timezones will not be available to Arrow compute functions.
+starting worker pid=15608 on localhost:11830 at 22:04:22.006
+starting worker pid=13060 on localhost:11830 at 22:04:22.009
+starting worker pid=25388 on localhost:11830 at 22:04:22.010
+starting worker pid=14996 on localhost:11830 at 22:04:22.012
+starting worker pid=19560 on localhost:11830 at 22:04:22.022
+starting worker pid=13936 on localhost:11830 at 22:04:22.024
+starting worker pid=17644 on localhost:11830 at 22:04:22.036
+starting worker pid=13072 on localhost:11830 at 22:04:22.042
+starting worker pid=9032 on localhost:11830 at 22:04:22.043
+starting worker pid=3560 on localhost:11830 at 22:04:22.044
+Loading required package: sp
+Loading required package: sp
+Linking to GEOS 3.13.1, GDAL 3.11.0, PROJ 9.6.0; sf_use_s2() is TRUE
+Loading required package: sp
+Linking to GEOS 3.13.1, GDAL 3.11.0, PROJ 9.6.0; sf_use_s2() is TRUE
+Loading required package: sp
+Linking to GEOS 3.13.1, GDAL 3.11.0, PROJ 9.6.0; sf_use_s2() is TRUE
+Loading required package: sp
+Linking to GEOS 3.13.1, GDAL 3.11.0, PROJ 9.6.0; sf_use_s2() is TRUE
+Loading required package: sp
+Linking to GEOS 3.13.1, GDAL 3.11.0, PROJ 9.6.0; sf_use_s2() is TRUE
+Loading required package: sp
+Linking to GEOS 3.13.1, GDAL 3.11.0, PROJ 9.6.0; sf_use_s2() is TRUE
+Linking to GEOS 3.13.1, GDAL 3.11.0, PROJ 9.6.0; sf_use_s2() is TRUE
+Loading required package: sp
+Loading required package: sp
+Linking to GEOS 3.13.1, GDAL 3.11.0, PROJ 9.6.0; sf_use_s2() is TRUE
+Linking to GEOS 3.13.1, GDAL 3.11.0, PROJ 9.6.0; sf_use_s2() is TRUE
+Loading required package: sp
+Linking to GEOS 3.13.1, GDAL 3.11.0, PROJ 9.6.0; sf_use_s2() is TRUE
+The tzdb package is not installed. Timezones will not be available to Arrow compute functions.
+The tzdb package is not installed. Timezones will not be available to Arrow compute functions.
+The tzdb package is not installed. Timezones will not be available to Arrow compute functions.
+The tzdb package is not installed. Timezones will not be available to Arrow compute functions.
+The tzdb package is not installed. Timezones will not be available to Arrow compute functions.
+The tzdb package is not installed. Timezones will not be available to Arrow compute functions.
+starting worker pid=10340 on localhost:11513 at 22:10:41.315
+starting worker pid=5332 on localhost:11513 at 22:10:41.317
+starting worker pid=15376 on localhost:11513 at 22:10:41.318
+starting worker pid=2008 on localhost:11513 at 22:10:41.329
+starting worker pid=14308 on localhost:11513 at 22:10:41.329
+starting worker pid=4532 on localhost:11513 at 22:10:41.334
+starting worker pid=28284 on localhost:11513 at 22:10:41.334
+starting worker pid=15732 on localhost:11513 at 22:10:41.342
+starting worker pid=31112 on localhost:11513 at 22:10:41.342
+starting worker pid=10740 on localhost:11513 at 22:10:41.351
+Loading required package: sp
+Loading required package: sp
+Linking to GEOS 3.13.1, GDAL 3.11.0, PROJ 9.6.0; sf_use_s2() is TRUE
+Linking to GEOS 3.13.1, GDAL 3.11.0, PROJ 9.6.0; sf_use_s2() is TRUE
+Loading required package: sp
+Loading required package: sp
+Linking to GEOS 3.13.1, GDAL 3.11.0, PROJ 9.6.0; sf_use_s2() is TRUE
+Linking to GEOS 3.13.1, GDAL 3.11.0, PROJ 9.6.0; sf_use_s2() is TRUE
+Loading required package: sp
+Loading required package: sp
+Linking to GEOS 3.13.1, GDAL 3.11.0, PROJ 9.6.0; sf_use_s2() is TRUE
+Loading required package: sp
+Linking to GEOS 3.13.1, GDAL 3.11.0, PROJ 9.6.0; sf_use_s2() is TRUE
+Loading required package: sp
+Linking to GEOS 3.13.1, GDAL 3.11.0, PROJ 9.6.0; sf_use_s2() is TRUE
+Loading required package: sp
+Linking to GEOS 3.13.1, GDAL 3.11.0, PROJ 9.6.0; sf_use_s2() is TRUE
+Loading required package: sp
+Linking to GEOS 3.13.1, GDAL 3.11.0, PROJ 9.6.0; sf_use_s2() is TRUE
+Linking to GEOS 3.13.1, GDAL 3.11.0, PROJ 9.6.0; sf_use_s2() is TRUE
+The tzdb package is not installed. Timezones will not be available to Arrow compute functions.
+The tzdb package is not installed. Timezones will not be available to Arrow compute functions.
+The tzdb package is not installed. Timezones will not be available to Arrow compute functions.
+starting worker pid=20220 on localhost:11134 at 22:12:21.680
+starting worker pid=9688 on localhost:11134 at 22:12:21.689
+starting worker pid=28708 on localhost:11134 at 22:12:21.692
+starting worker pid=15232 on localhost:11134 at 22:12:21.693
+starting worker pid=29652 on localhost:11134 at 22:12:21.694
+starting worker pid=16288 on localhost:11134 at 22:12:21.707
+starting worker pid=31444 on localhost:11134 at 22:12:21.708
+starting worker pid=29908 on localhost:11134 at 22:12:21.710
+starting worker pid=24868 on localhost:11134 at 22:12:21.713
+starting worker pid=13720 on localhost:11134 at 22:12:21.716
+Loading required package: sp
+Loading required package: sp
+Linking to GEOS 3.13.1, GDAL 3.11.0, PROJ 9.6.0; sf_use_s2() is TRUE
+Loading required package: sp
+Linking to GEOS 3.13.1, GDAL 3.11.0, PROJ 9.6.0; sf_use_s2() is TRUE
+Loading required package: sp
+Linking to GEOS 3.13.1, GDAL 3.11.0, PROJ 9.6.0; sf_use_s2() is TRUE
+Linking to GEOS 3.13.1, GDAL 3.11.0, PROJ 9.6.0; sf_use_s2() is TRUE
+Loading required package: sp
+Loading required package: sp
+Linking to GEOS 3.13.1, GDAL 3.11.0, PROJ 9.6.0; sf_use_s2() is TRUE
+Linking to GEOS 3.13.1, GDAL 3.11.0, PROJ 9.6.0; sf_use_s2() is TRUE
+Loading required package: sp
+Loading required package: sp
+Linking to GEOS 3.13.1, GDAL 3.11.0, PROJ 9.6.0; sf_use_s2() is TRUE
+Loading required package: sp
+Linking to GEOS 3.13.1, GDAL 3.11.0, PROJ 9.6.0; sf_use_s2() is TRUE
+Linking to GEOS 3.13.1, GDAL 3.11.0, PROJ 9.6.0; sf_use_s2() is TRUE
+Loading required package: sp
+Linking to GEOS 3.13.1, GDAL 3.11.0, PROJ 9.6.0; sf_use_s2() is TRUE
+The tzdb package is not installed. Timezones will not be available to Arrow compute functions.
+The tzdb package is not installed. Timezones will not be available to Arrow compute functions.
+The tzdb package is not installed. Timezones will not be available to Arrow compute functions.
+The tzdb package is not installed. Timezones will not be available to Arrow compute functions.
+The tzdb package is not installed. Timezones will not be available to Arrow compute functions.
+The tzdb package is not installed. Timezones will not be available to Arrow compute functions.
+The tzdb package is not installed. Timezones will not be available to Arrow compute functions.
+The tzdb package is not installed. Timezones will not be available to Arrow compute functions.
+The tzdb package is not installed. Timezones will not be available to Arrow compute functions.
+starting worker pid=29404 on localhost:11553 at 22:17:01.374
+starting worker pid=13192 on localhost:11553 at 22:17:01.375
+starting worker pid=4560 on localhost:11553 at 22:17:01.379
+starting worker pid=7528 on localhost:11553 at 22:17:01.385
+starting worker pid=14452 on localhost:11553 at 22:17:01.388
+starting worker pid=28216 on localhost:11553 at 22:17:01.392
+starting worker pid=24832 on localhost:11553 at 22:17:01.396
+starting worker pid=22624 on localhost:11553 at 22:17:01.399
+starting worker pid=8700 on localhost:11553 at 22:17:01.400
+starting worker pid=23608 on localhost:11553 at 22:17:01.405
+Loading required package: sp
+Loading required package: sp
+Linking to GEOS 3.13.1, GDAL 3.11.0, PROJ 9.6.0; sf_use_s2() is TRUE
+Loading required package: sp
+Linking to GEOS 3.13.1, GDAL 3.11.0, PROJ 9.6.0; sf_use_s2() is TRUE
+Loading required package: sp
+Linking to GEOS 3.13.1, GDAL 3.11.0, PROJ 9.6.0; sf_use_s2() is TRUE
+Loading required package: sp
+Linking to GEOS 3.13.1, GDAL 3.11.0, PROJ 9.6.0; sf_use_s2() is TRUE
+Linking to GEOS 3.13.1, GDAL 3.11.0, PROJ 9.6.0; sf_use_s2() is TRUE
+Loading required package: sp
+Loading required package: sp
+Linking to GEOS 3.13.1, GDAL 3.11.0, PROJ 9.6.0; sf_use_s2() is TRUE
+Linking to GEOS 3.13.1, GDAL 3.11.0, PROJ 9.6.0; sf_use_s2() is TRUE
+Loading required package: sp
+Loading required package: sp
+Linking to GEOS 3.13.1, GDAL 3.11.0, PROJ 9.6.0; sf_use_s2() is TRUE
+Linking to GEOS 3.13.1, GDAL 3.11.0, PROJ 9.6.0; sf_use_s2() is TRUE
+Loading required package: sp
+Linking to GEOS 3.13.1, GDAL 3.11.0, PROJ 9.6.0; sf_use_s2() is TRUE
+The tzdb package is not installed. Timezones will not be available to Arrow compute functions.
+The tzdb package is not installed. Timezones will not be available to Arrow compute functions.
+The tzdb package is not installed. Timezones will not be available to Arrow compute functions.
+The tzdb package is not installed. Timezones will not be available to Arrow compute functions.
+The tzdb package is not installed. Timezones will not be available to Arrow compute functions.
+The tzdb package is not installed. Timezones will not be available to Arrow compute functions.
+The tzdb package is not installed. Timezones will not be available to Arrow compute functions.
+The tzdb package is not installed. Timezones will not be available to Arrow compute functions.
+The tzdb package is not installed. Timezones will not be available to Arrow compute functions.
+The tzdb package is not installed. Timezones will not be available to Arrow compute functions.
+starting worker pid=28648 on localhost:11733 at 22:24:51.941
+starting worker pid=29104 on localhost:11733 at 22:24:51.942
+starting worker pid=20164 on localhost:11733 at 22:24:51.947
+starting worker pid=23864 on localhost:11733 at 22:24:51.949
+starting worker pid=5064 on localhost:11733 at 22:24:51.954
+starting worker pid=5300 on localhost:11733 at 22:24:51.964
+starting worker pid=19776 on localhost:11733 at 22:24:51.965
+starting worker pid=4000 on localhost:11733 at 22:24:51.966
+starting worker pid=16112 on localhost:11733 at 22:24:51.967
+starting worker pid=12368 on localhost:11733 at 22:24:51.969
+Loading required package: sp
+Loading required package: sp
+Linking to GEOS 3.13.1, GDAL 3.11.0, PROJ 9.6.0; sf_use_s2() is TRUE
+Loading required package: sp
+Linking to GEOS 3.13.1, GDAL 3.11.0, PROJ 9.6.0; sf_use_s2() is TRUE
+Loading required package: sp
+Linking to GEOS 3.13.1, GDAL 3.11.0, PROJ 9.6.0; sf_use_s2() is TRUE
+Linking to GEOS 3.13.1, GDAL 3.11.0, PROJ 9.6.0; sf_use_s2() is TRUE
+Loading required package: sp
+Loading required package: sp
+Linking to GEOS 3.13.1, GDAL 3.11.0, PROJ 9.6.0; sf_use_s2() is TRUE
+Loading required package: sp
+Linking to GEOS 3.13.1, GDAL 3.11.0, PROJ 9.6.0; sf_use_s2() is TRUE
+Loading required package: sp
+Linking to GEOS 3.13.1, GDAL 3.11.0, PROJ 9.6.0; sf_use_s2() is TRUE
+Loading required package: sp
+Linking to GEOS 3.13.1, GDAL 3.11.0, PROJ 9.6.0; sf_use_s2() is TRUE
+Linking to GEOS 3.13.1, GDAL 3.11.0, PROJ 9.6.0; sf_use_s2() is TRUE
+Loading required package: sp
+Linking to GEOS 3.13.1, GDAL 3.11.0, PROJ 9.6.0; sf_use_s2() is TRUE
+The tzdb package is not installed. Timezones will not be available to Arrow compute functions.
+The tzdb package is not installed. Timezones will not be available to Arrow compute functions.
+The tzdb package is not installed. Timezones will not be available to Arrow compute functions.
+The tzdb package is not installed. Timezones will not be available to Arrow compute functions.
+The tzdb package is not installed. Timezones will not be available to Arrow compute functions.
+The tzdb package is not installed. Timezones will not be available to Arrow compute functions.
+The tzdb package is not installed. Timezones will not be available to Arrow compute functions.
+The tzdb package is not installed. Timezones will not be available to Arrow compute functions.
+The tzdb package is not installed. Timezones will not be available to Arrow compute functions.
+The tzdb package is not installed. Timezones will not be available to Arrow compute functions.
+There were 16 warnings (use warnings() to see them)
+There were 16 warnings (use warnings() to see them)
+There were 24 warnings (use warnings() to see them)
+There were 17 warnings (use warnings() to see them)
+There were 26 warnings (use warnings() to see them)
+Warning messages:
+There were 12 warnings (use warnings() to see them)
+1: There were 21 warnings (use warnings() to see them)
+In min(cc[[1]], na.rm = TRUE) :
+ There were 19 warnings (use warnings() to see them)
+2: In min(cc[[2]], na.rm = TRUE) :
+  no non-missing arguments to min; returning Inf
+3: In max(cc[[1]], na.rm = TRUE) :
+ Warning messages:
+ no non-missing arguments to max; returning -Inf
+1: TIFFFillTile:Read error at row 2560, col 1280, tile 227; got 199623 bytes, expected 290505 (GDAL error 1) 
+4: 2: TIFFReadEncodedTile() failed. (GDAL error 1) 
+3: 66_dnbr.tif, band 1: IReadBlock failed at X offset 11, Y offset 9: TIFFReadEncodedTile() failed. (GDAL error 1) 
+4: TIFFFillTile:Read error at row 2560, col 1280, tile 227; got 199623 bytes, expected 290505 (GDAL error 1) 
+5: TIFFReadEncodedTile() failed. (GDAL error 1) 
+6: 66_dnbr.tif, band 1: IReadBlock failed at X offset 11, Y offset 9: TIFFReadEncodedTile() failed. (GDAL error 1) 

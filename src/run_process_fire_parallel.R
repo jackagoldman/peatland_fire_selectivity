@@ -38,20 +38,17 @@ prog_poly <- prog_poly[prog_poly$K_FireID %in% fire_ids, ]
 
 # Set up parallel processing
 num_clusters <- min(10, detectCores() - 1)               # Use up to 20 cores or available-1
-cl <- makeCluster(num_clusters, ,outfile = "test/worker_log.txt")   # Create cluster
+cl <- makeCluster(num_clusters, ,outfile = "logs/worker_log.txt")   # Create cluster
 registerDoParallel(cl)                                    # Register parallel backend
 
 # Run parallel processing for each fire
 # Note: Update 'prog_poly' in the foreach call if using a subset for testing
 results <- foreach(i = 1:nrow(prog_poly), .packages = c("raster", "sf")) %dopar% {
-  process_fire(i, prog_poly, dnbr_path, peatland_path)
+  res <- process_fire(i, prog_poly, dnbr_path, peatland_path)
+  arrow::write_parquet(res, paste0("data/used_available_per_fire/used_available_", res$K_UniqueID[1], ".parquet"), compression = "snappy")
+  NULL
 }
 
 # Stop the parallel cluster
 stopCluster(cl)
 
-# Combine all fire results into a single data frame
-final_df <- do.call(rbind, results)
-
-# Write results to CSV file
-write.csv(final_df, "results/hsf_fire_selectivity_data.csv", row.names = FALSE)
