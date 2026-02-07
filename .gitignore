@@ -3,7 +3,6 @@
 
 # renv
 renv/library/
-renv/activate.R
 
 # file types
 .parquet
