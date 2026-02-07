@@ -9,3 +9,13 @@ default:
 
 local:
    progression_path: "data/fire_progression_polygons/landscape_processed_polygons_km_oct18.shp"  # Local path to fire progression shapefile for testing (e.g., "data/progression.shp")
+   
+
+reprocessing:
+    progression_path: "data/fire_progression_polygons/fires_to_reprocess/progression_polygons_to_reprocess.shp"
+    dnbr_path: "G:/Fire_Selectivity/NickPelletier - do not delete/dNBR rasters/"  # Path to folder containing DNBR .tif files (e.g., "/path/to/dnbr/")
+    peatland_path: "E:/Jack/data/peatland_fire_selectivity/Peat_Canopy_2023_11_06.tif"      # Path to merged peatland-canopy raster file (e.g., "/path/to/landcover.tif")
+    proj_dir: !expr getwd()  # Project directory set to current working directory
+    worker_log: "logs/reprocessing_worker_log.txt"  # Path to worker log file (e.g., "logs/worker_log.txt")
+    error_log: "logs/reprocessing_error_log.txt"    # Path to error log file (e.g., "logs/error_log.txt")
+    fire_log: "logs/reprocessing_fire_log/fire_log_"

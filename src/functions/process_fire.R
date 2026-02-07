@@ -27,9 +27,12 @@ process_fire <- function(i, prog_poly, dnbr_path , peatland_path) {
   dir.create("logs", showWarnings = FALSE)
   
   # Initialize error and fire logs
-  error_log_file <- "logs/error_log.txt"
-  fire_log_file <- paste0("logs/fire_log_", i, ".txt")
+  #error_log_file <- "logs/error_log.txt"
+  #fire_log_file <- paste0("logs/fire_log_", i, ".txt")
   
+  # get config
+  config <- config::get(config="reprocessing")
+
   tryCatch({
     poly <- prog_poly[i, ]
   
@@ -190,12 +193,14 @@ process_fire <- function(i, prog_poly, dnbr_path , peatland_path) {
   df_location <- "data/per_fire/"
   df_fname <- paste0(df_location, k_fireid, "_used_available.csv")
  
-
+  #Initialize error and fire logs
+  error_log_file <- config$error_log
+  fire_log_file <- paste0(config$fire_log, k_uniqueid, ".txt")
   
   return(fire_df)
   }, error = function(e) {
     # Log error
-    error_msg <- paste("Error processing fire index", i, ":", e$message)
+    error_msg <- paste("Error processing fire index", k_uniqueid, ":", e$message)
     write(error_msg, file = error_log_file, append = TRUE)
     # Return empty data frame
     return(data.frame(

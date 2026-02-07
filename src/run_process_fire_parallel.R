@@ -3,7 +3,7 @@
 # to extract burned/unburned pixel data for peatland fire selectivity analysis.
 
 # get defaults
-config <- config::get(file = "config.yml")
+config <- config::get(file = "config.yml", config = "reprocessing")
 
 # Source the main processing function
 # set working directory to the script's directory
@@ -51,4 +51,3 @@ results <- foreach(i = 1:nrow(prog_poly), .packages = c("raster", "sf")) %dopar%
 
 # Stop the parallel cluster
 stopCluster(cl)
-
