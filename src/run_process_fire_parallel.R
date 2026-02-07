@@ -7,7 +7,7 @@ config <- config::get(file = "config.yml")
 
 # Source the main processing function
 # set working directory to the script's directory
-project_root <- getwd()
+project_root <- config$proj_dir
 
 # get functions
 source(file.path(project_root, "src/functions/process_fire.R"))# Script to run fire processing in parallel
