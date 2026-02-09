@@ -33,6 +33,7 @@ process_fire <- function(i, prog_poly, dnbr_path , peatland_path) {
   # get config
   config <- config::get(config="reprocessing")
   error_log_file <- config$error_log
+  fire_log_file <- config$fire_log
 
   tryCatch({
     poly <- prog_poly[i, ]
@@ -178,15 +179,18 @@ if (nrow(unburned_pts) > 0) {
     Unburned_Pixels = unburned_pixels,
     Total_Pixels = total_pixels
   )
+    
+  # fire log file
+  fire_log_file <- paste0(fire_log_file, k_uniqueid, ".txt")
   write.table(fire_log, file = fire_log_file, row.names = FALSE, col.names = TRUE, sep = "\t")
   
   #output file name
   df_location <- "data/per_fire/"
   df_fname <- paste0(df_location, k_fireid, "_used_available.csv")
+
+
  
-  #Initialize error and fire logs
-  error_log_file <- config$error_log
-  fire_log_file <- paste0(config$fire_log, k_uniqueid, ".txt")
+  
   
   return(fire_df)
   }, error = function(e) {
