@@ -66,3 +66,97 @@ There were 18 warnings (use warnings() to see them)There were 19 warnings (use w
 There were 15 warnings (use warnings() to see them)
 There were 17 warnings (use warnings() to see them)
 There were 16 warnings (use warnings() to see them)
+starting worker pid=9044 on localhost:11375 at 13:04:56.973
+starting worker pid=5152 on localhost:11375 at 13:04:56.997
+starting worker pid=24228 on localhost:11375 at 13:04:57.029
+starting worker pid=22032 on localhost:11375 at 13:04:57.102
+starting worker pid=24284 on localhost:11375 at 13:04:57.126
+starting worker pid=25240 on localhost:11375 at 13:04:57.216
+starting worker pid=23296 on localhost:11375 at 13:04:57.238
+starting worker pid=13060 on localhost:11375 at 13:04:57.278
+starting worker pid=23088 on localhost:11375 at 13:04:57.298
+starting worker pid=23496 on localhost:11375 at 13:04:57.314
+Loading required package: sp
+Loading required package: sp
+Loading required package: sp
+Loading required package: sp
+Loading required package: sp
+Loading required package: sp
+Loading required package: sp
+Loading required package: sp
+Loading required package: sp
+Loading required package: sp
+Linking to GEOS 3.14.1, GDAL 3.12.1, PROJ 9.7.1; sf_use_s2() is TRUE
+Linking to GEOS 3.14.1, GDAL 3.12.1, PROJ 9.7.1; sf_use_s2() is TRUE
+Linking to GEOS 3.14.1, GDAL 3.12.1, PROJ 9.7.1; sf_use_s2() is TRUE
+Linking to GEOS 3.14.1, GDAL 3.12.1, PROJ 9.7.1; sf_use_s2() is TRUE
+Linking to GEOS 3.14.1, GDAL 3.12.1, PROJ 9.7.1; sf_use_s2() is TRUE
+Linking to GEOS 3.14.1, GDAL 3.12.1, PROJ 9.7.1; sf_use_s2() is TRUE
+Linking to GEOS 3.14.1, GDAL 3.12.1, PROJ 9.7.1; sf_use_s2() is TRUE
+Linking to GEOS 3.14.1, GDAL 3.12.1, PROJ 9.7.1; sf_use_s2() is TRUE
+Linking to GEOS 3.14.1, GDAL 3.12.1, PROJ 9.7.1; sf_use_s2() is TRUE
+Linking to GEOS 3.14.1, GDAL 3.12.1, PROJ 9.7.1; sf_use_s2() is TRUE
+There were 11 warnings (use warnings() to see them)
+There were 11 warnings (use warnings() to see them)
+Warning messages:
+1: package 'raster' was built under R version 4.5.2 
+2: package 'sp' was built under R version 4.5.2 
+3: TIFFFillTile:Read error at row 2560, col 1280, tile 227; got 199623 bytes, expected 290505 (GDAL error 1) 
+4: TIFFReadEncodedTile() failed. (GDAL error 1) 
+5: 66_dnbr.tif, band 1: IReadBlock failed at X offset 11, Y offset 9: TIFFReadEncodedTile() failed. (GDAL error 1) 
+There were 17 warnings (use warnings() to see them)ile 227; got 199623 bytes, expected 290505 (GDAL error 1) 
+
+ TIFFReadEncodedTile() failed. (GDAL error 1) 
+8: 66_dnbr.tif, band 1: IReadBlock failed at X offset 11, Y offset 9: TIFFReadEncodedTile() failed. (GDAL error 1) 
+There were 17 warnings (use warnings() to see them)There were 11 warnings (use warnings() to see them)
+There were 14 warnings (use warnings() to see them)
+There were 14 warnings (use warnings() to see them)
+There were 14 warnings (use warnings() to see them)
+Warning messages:
+1: package 'raster' was built under R version 4.5.2 
+2: package 'sp' was built under R version 4.5.2 
+3: TIFFFillTile:Read error at row 2560, col 1280, tile 227; got 199623 bytes, expected 290505 (GDAL error 1) 
+4: TIFFReadEncodedTile() failed. (GDAL error 1) 
+5: 66_dnbr.tif, band 1: IReadBlock failed at X offset 11, Y offset 9: TIFFReadEncodedTile() failed. (GDAL error 1) 
+6: TIFFFillTile:Read error at row 2560, col 1280, tile 227; got 199623 bytes, expected 290505 (GDAL error 1) 
+7: TIFFReadEncodedTile() failed. (GDAL error 1) 
+8: 66_dnbr.tif, band 1: IReadBlock failed at X offset 11, Y offset 9: TIFFReadEncodedTile() failed. (GDAL error 1) 
+starting worker pid=17084 on localhost:11375 at 13:10:20.585
+starting worker pid=5644 on localhost:11375 at 13:10:20.683
+starting worker pid=1564 on localhost:11375 at 13:10:20.702
+starting worker pid=23204 on localhost:11375 at 13:10:20.763
+starting worker pid=4912 on localhost:11375 at 13:10:20.799
+starting worker pid=1420 on localhost:11375 at 13:10:20.803
+starting worker pid=23296 on localhost:11375 at 13:10:20.831
+starting worker pid=5376 on localhost:11375 at 13:10:20.854
+starting worker pid=3496 on localhost:11375 at 13:10:20.904
+starting worker pid=30672 on localhost:11375 at 13:10:20.969
+Loading required package: sp
+Loading required package: sp
+Loading required package: sp
+Loading required package: sp
+Loading required package: sp
+Loading required package: sp
+Loading required package: sp
+Loading required package: sp
+Loading required package: sp
+Loading required package: sp
+Linking to GEOS 3.14.1, GDAL 3.12.1, PROJ 9.7.1; sf_use_s2() is TRUE
+Linking to GEOS 3.14.1, GDAL 3.12.1, PROJ 9.7.1; sf_use_s2() is TRUE
+Linking to GEOS 3.14.1, GDAL 3.12.1, PROJ 9.7.1; sf_use_s2() is TRUE
+Linking to GEOS 3.14.1, GDAL 3.12.1, PROJ 9.7.1; sf_use_s2() is TRUE
+Linking to GEOS 3.14.1, GDAL 3.12.1, PROJ 9.7.1; sf_use_s2() is TRUE
+Linking to GEOS 3.14.1, GDAL 3.12.1, PROJ 9.7.1; sf_use_s2() is TRUE
+Linking to GEOS 3.14.1, GDAL 3.12.1, PROJ 9.7.1; sf_use_s2() is TRUE
+Linking to GEOS 3.14.1, GDAL 3.12.1, PROJ 9.7.1; sf_use_s2() is TRUE
+Linking to GEOS 3.14.1, GDAL 3.12.1, PROJ 9.7.1; sf_use_s2() is TRUE
+Linking to GEOS 3.14.1, GDAL 3.12.1, PROJ 9.7.1; sf_use_s2() is TRUE
+There were 16 warnings (use warnings() to see them)
+ere were 11 warnings (use warnings() to see them)
+There were 11 warnings (use warnings() to see them)
+There were 15 warnings (use warnings() to see them)
+There were 15 warnings (use warnings() to see them)
+There were 15 warnings (use warnings() to see them)
+There were 14 warnings (use warnings() to see them)
+There were 16 warnings (use warnings() to see them)There were 18 warnings (use warnings() to see them)
+There were 13 warnings (use warnings() to see them)
