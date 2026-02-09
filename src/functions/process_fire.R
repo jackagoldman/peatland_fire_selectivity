@@ -54,7 +54,7 @@ process_fire <- function(i, prog_poly, dnbr_path , peatland_path) {
   raster_crs = crs(dnbr_raster)
   
   # Crop peatland raster to DNBR extent - ensures only relevant area is processed
-  peatland_raster = crop(peatland_data, dnbr_raster)
+  peatland_raster = crop(peatland_data, extent(dnbr_raster))
   
   # Discard the full peatland raster to free memory
   peatland_data <- NULL
@@ -65,7 +65,7 @@ process_fire <- function(i, prog_poly, dnbr_path , peatland_path) {
 
 
   # Find burned pixels (> 0.1)
-  burned <- dnbr_raster > 0.1
+  burned <- dnbr_raster_res > 0.1
   
   #mask landc cover raster to burned areas
   masked_peatland_raster = peatland_raster
@@ -78,95 +78,85 @@ process_fire <- function(i, prog_poly, dnbr_path , peatland_path) {
   polygon_raster = rasterize(poly, peatland_raster)# conversts the fire progression polygon into a reask mask matching the grid of peatland_raster. Pixels inside the polygon are set to a value of 1 and outside toNA or 0. Create a spatial max for fire boundary
   
   #align extents to prevent cropping errors
-  polygon_raster = crop(polygon_raster, st_bbox(masked_peatland_raster))
-  masked_peatland_raster = crop(masked_peatland_raster, st_bbox(polygon_raster)) # crops both rasters to each others bounding box to ensure identical extents, avoids errors from mismatched raster dimensions during masking, as mask requires aligned inputs.
+  polygon_raster = crop(polygon_raster, extent(masked_peatland_raster))
+  masked_peatland_raster = crop(masked_peatland_raster, extent(polygon_raster)) # crops both rasters to each others bounding box to ensure identical extents, avoids errors from mismatched raster dimensions during masking, as mask requires aligned inputs.
   
   #final mask to the polygon boundary
   burned_peatland_raster = mask(masked_peatland_raster, polygon_raster) # applis the polygon mask. setting pixels outside the polygon to NA. The results is a raster with alndcover values only for burned pixels inside the fire polygon.
 
   # Find unburned pixels (< 0.1)
-  unburned <- dnbr_raster < 0.1 #unburned mask
+  unburned <- dnbr_raster_res < 0.1 #unburned mask
   
   #apply the mask for unburned pixels
   masked_peatland_raster_ub = peatland_raster
   masked_peatland_raster_ub[!unburned] = NA
   
   # cross crop using rasterized polygon from above
-  polygon_raster_ub = crop(polygon_raster, st_bbox(masked_peatland_raster_ub))
-  masked_peatland_raster_ub = crop(masked_peatland_raster_ub, st_bbox(polygon_raster_ub))
+  polygon_raster_ub = crop(polygon_raster, extent(masked_peatland_raster_ub))
+  masked_peatland_raster_ub = crop(masked_peatland_raster_ub, extent(polygon_raster_ub))
   
   #mask the raster with the polygon
   unburned_peatland_raster = mask(masked_peatland_raster_ub, polygon_raster_ub) # unburned peatland raster with landcover values only for unburned pixels inside the fire polygon.
   
   
   # Get centroids for burned pixels
-  if (cellStats(burned_peatland_raster, 'countNA', na.rm = TRUE) > 0) {
-    burned_pts <- rasterToPoints(burned_peatland_raster)
-    coords_burned_raw <- burned_pts[, 1:2]
-    lc_burned <- burned_pts[, 3]
-    burned_pts_sf <- st_as_sf(data.frame(x = coords_burned_raw[, 1], y = coords_burned_raw[, 2]), 
+ # Burned
+burned_pts <- rasterToPoints(burned_peatland_raster)
+if (nrow(burned_pts) > 0) {
+  coords_burned_raw <- burned_pts[, 1:2]
+  lc_burned <- burned_pts[, 3]
+  burned_pts_sf <- st_as_sf(data.frame(x = coords_burned_raw[, 1], y = coords_burned_raw[, 2]),
+                            coords = c("x", "y"), crs = raster_crs)
+  burned_pts_4326 <- st_transform(burned_pts_sf, 4326)
+  coords_burned <- st_coordinates(burned_pts_4326)
+
+  burned_df <- data.frame(
+    Used = rep(1L, nrow(burned_pts)),   # <- length matches others
+    Lc_class = lc_burned,
+    X = coords_burned[, 1],
+    Y = coords_burned[, 2],
+    Fire_ID = rep(k_fireid, nrow(burned_pts)),
+    K_UniqueID = rep(poly$K_UniqueID, nrow(burned_pts)),
+    CLUSTERID = rep(cluster_id, nrow(burned_pts)),
+    AREA = rep(poly$AREA, nrow(burned_pts)),
+    C_AREA = rep(poly$C_AREA, nrow(burned_pts))
+  )
+} else {
+  burned_df <- data.frame(
+    Used = integer(), Lc_class = integer(), X = numeric(), Y = numeric(),
+    Fire_ID = character(), K_UniqueID = character(), CLUSTERID = character(),
+    AREA = numeric(), C_AREA = numeric()
+  )
+}
+
+# Unburned (mirror the same pattern)
+unburned_pts <- rasterToPoints(unburned_peatland_raster)
+if (nrow(unburned_pts) > 0) {
+  coords_unburned_raw <- unburned_pts[, 1:2]
+  lc_unburned <- unburned_pts[, 3]
+  unburned_pts_sf <- st_as_sf(data.frame(x = coords_unburned_raw[, 1], y = coords_unburned_raw[, 2]),
                               coords = c("x", "y"), crs = raster_crs)
-    burned_pts_4326 <- st_transform(burned_pts_sf, 4326)
-    coords_burned <- st_coordinates(burned_pts_4326)
-    burned_df <- data.frame(
-      Used = 1,
-      Lc_class = lc_burned,
-      X = coords_burned[, 1],  # Longitude
-      Y = coords_burned[, 2],  # Latitude
-      Fire_ID = k_fireid,
-      K_UniqueID = poly$K_UniqueID,
-      CLUSTERID = cluster_id,
-      AREA = poly$AREA, 
-      C_AREA = poly$C_AREA
-    )
-  } else {
-    burned_df <- data.frame(
-      Used = integer(),
-      Lc_class = integer(),
-      X = numeric(),
-      Y = numeric(),
-      Fire_ID = character(),
-      K_UniqueID = character(),
-      CLUSTERID = character(),
-      AREA = numeric(),
-      C_AREA = numeric()
-    )
-  }
-  
-  # Get centroids for unburned pixels
-  if (cellStats(unburned_peatland_raster, 'countNA', na.rm = TRUE) > 0) {
-    unburned_pts <- rasterToPoints(unburned_peatland_raster)
-    coords_unburned_raw <- unburned_pts[, 1:2]
-    lc_unburned <- unburned_pts[, 3]
-    unburned_pts_sf <- st_as_sf(data.frame(x = coords_unburned_raw[, 1], y = coords_unburned_raw[, 2]), 
-                                coords = c("x", "y"), crs = raster_crs)
-    unburned_pts_4326 <- st_transform(unburned_pts_sf, 4326)
-    coords_unburned <- st_coordinates(unburned_pts_4326)
-    unburned_df <- data.frame(
-      Used = 0,
-      Lc_class = lc_unburned,
-      X = coords_unburned[, 1],  # Longitude
-      Y = coords_unburned[, 2],  # Latitude
-      Fire_ID = k_fireid,
-      K_UniqueID = poly$K_UniqueID,
-      CLUSTERID = cluster_id, 
-      AREA = poly$AREA, 
-      C_AREA = poly$C_AREA
-    )
-  } else {
-    unburned_df <- data.frame(
-      Used = integer(),
-      Lc_class = integer(),
-      X = numeric(),
-      Y = numeric(),
-      Fire_ID = character(),
-      K_UniqueID = character(),
-      CLUSTERID = character(),
-      AREA = numeric(),
-      C_AREA = numeric()
-    )
-   
-  }
+  unburned_pts_4326 <- st_transform(unburned_pts_sf, 4326)
+  coords_unburned <- st_coordinates(unburned_pts_4326)
+
+  unburned_df <- data.frame(
+    Used = rep(0L, nrow(unburned_pts)),
+    Lc_class = lc_unburned,
+    X = coords_unburned[, 1],
+    Y = coords_unburned[, 2],
+    Fire_ID = rep(k_fireid, nrow(unburned_pts)),
+    K_UniqueID = rep(poly$K_UniqueID, nrow(unburned_pts)),
+    CLUSTERID = rep(cluster_id, nrow(unburned_pts)),
+    AREA = rep(poly$AREA, nrow(unburned_pts)),
+    C_AREA = rep(poly$C_AREA, nrow(unburned_pts))
+  )
+} else {
+  unburned_df <- data.frame(
+    Used = integer(), Lc_class = integer(), X = numeric(), Y = numeric(),
+    Fire_ID = character(), K_UniqueID = character(), CLUSTERID = character(),
+    AREA = numeric(), C_AREA = numeric()
+  )
+}
 
   # Combine burned and unburned for this fire
   fire_df <- rbind(burned_df, unburned_df)
