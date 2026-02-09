@@ -33,7 +33,9 @@ process_fire <- function(i, prog_poly, dnbr_path , peatland_path) {
   # get config
   config <- config::get(config="reprocessing")
   error_log_file <- config$error_log
-  fire_log_file <- config$fire_log
+  fire_log_dir <- config$fire_log
+  dir.create(fire_log_dir, showWarnings = FALSE, recursive = TRUE)
+
 
   tryCatch({
     poly <- prog_poly[i, ]
@@ -181,14 +183,10 @@ if (nrow(unburned_pts) > 0) {
   )
     
   # fire log file
-  fire_log_file <- paste0(fire_log_file, k_uniqueid, ".txt")
+  fire_log_file <- file.path(fire_log_dir, paste0(k_uniqueid, ".txt"))
   write.table(fire_log, file = fire_log_file, row.names = FALSE, col.names = TRUE, sep = "\t")
   
-  #output file name
-  df_location <- "data/per_fire/"
-  df_fname <- paste0(df_location, k_fireid, "_used_available.csv")
-
-
+  
  
   
   
