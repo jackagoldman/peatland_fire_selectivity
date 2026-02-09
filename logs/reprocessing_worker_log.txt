@@ -1,0 +1,68 @@
+starting worker pid=29848 on localhost:11375 at 11:01:39.455
+starting worker pid=1992 on localhost:11375 at 11:01:39.457
+starting worker pid=21328 on localhost:11375 at 11:01:39.482
+starting worker pid=12080 on localhost:11375 at 11:01:39.484
+starting worker pid=24712 on localhost:11375 at 11:01:39.487
+starting worker pid=9540 on localhost:11375 at 11:01:39.489
+starting worker pid=9536 on localhost:11375 at 11:01:39.490
+starting worker pid=10896 on localhost:11375 at 11:01:39.491
+starting worker pid=31336 on localhost:11375 at 11:01:39.493
+starting worker pid=6128 on localhost:11375 at 11:01:39.496
+Loading required package: sp
+Loading required package: sp
+Loading required package: sp
+Loading required package: sp
+Loading required package: sp
+Loading required package: sp
+Loading required package: sp
+Loading required package: sp
+Loading required package: sp
+Loading required package: sp
+Linking to GEOS 3.14.1, GDAL 3.12.1, PROJ 9.7.1; sf_use_s2() is TRUE
+Linking to GEOS 3.14.1, GDAL 3.12.1, PROJ 9.7.1; sf_use_s2() is TRUE
+Linking to GEOS 3.14.1, GDAL 3.12.1, PROJ 9.7.1; sf_use_s2() is TRUE
+Linking to GEOS 3.14.1, GDAL 3.12.1, PROJ 9.7.1; sf_use_s2() is TRUE
+Linking to GEOS 3.14.1, GDAL 3.12.1, PROJ 9.7.1; sf_use_s2() is TRUE
+Linking to GEOS 3.14.1, GDAL 3.12.1, PROJ 9.7.1; sf_use_s2() is TRUE
+Linking to GEOS 3.14.1, GDAL 3.12.1, PROJ 9.7.1; sf_use_s2() is TRUE
+Linking to GEOS 3.14.1, GDAL 3.12.1, PROJ 9.7.1; sf_use_s2() is TRUE
+Linking to GEOS 3.14.1, GDAL 3.12.1, PROJ 9.7.1; sf_use_s2() is TRUE
+Linking to GEOS 3.14.1, GDAL 3.12.1, PROJ 9.7.1; sf_use_s2() is TRUE
+starting worker pid=14696 on localhost:11375 at 11:23:26.965
+starting worker pid=24404 on localhost:11375 at 11:23:27.030
+starting worker pid=10476 on localhost:11375 at 11:23:27.031
+starting worker pid=23128 on localhost:11375 at 11:23:27.135
+starting worker pid=26608 on localhost:11375 at 11:23:27.136
+starting worker pid=22832 on localhost:11375 at 11:23:27.153
+starting worker pid=8728 on localhost:11375 at 11:23:27.219
+starting worker pid=29948 on localhost:11375 at 11:23:27.245
+starting worker pid=2868 on localhost:11375 at 11:23:27.283
+starting worker pid=3628 on localhost:11375 at 11:23:27.298
+Loading required package: sp
+Loading required package: sp
+Loading required package: sp
+Loading required package: sp
+Loading required package: sp
+Loading required package: sp
+Loading required package: sp
+Loading required package: sp
+Loading required package: sp
+Loading required package: sp
+Linking to GEOS 3.14.1, GDAL 3.12.1, PROJ 9.7.1; sf_use_s2() is TRUE
+Linking to GEOS 3.14.1, GDAL 3.12.1, PROJ 9.7.1; sf_use_s2() is TRUE
+Linking to GEOS 3.14.1, GDAL 3.12.1, PROJ 9.7.1; sf_use_s2() is TRUE
+Linking to GEOS 3.14.1, GDAL 3.12.1, PROJ 9.7.1; sf_use_s2() is TRUE
+Linking to GEOS 3.14.1, GDAL 3.12.1, PROJ 9.7.1; sf_use_s2() is TRUE
+Linking to GEOS 3.14.1, GDAL 3.12.1, PROJ 9.7.1; sf_use_s2() is TRUE
+Linking to GEOS 3.14.1, GDAL 3.12.1, PROJ 9.7.1; sf_use_s2() is TRUE
+Linking to GEOS 3.14.1, GDAL 3.12.1, PROJ 9.7.1; sf_use_s2() is TRUE
+Linking to GEOS 3.14.1, GDAL 3.12.1, PROJ 9.7.1; sf_use_s2() is TRUE
+Linking to GEOS 3.14.1, GDAL 3.12.1, PROJ 9.7.1; sf_use_s2() is TRUE
+There were 18 warnings (use warnings() to see them)
+There were 16 warnings (use warnings() to see them)
+There were 19 warnings (use warnings() to see them)There were 22 warnings (use warnings() to see them)
+There were 21 warnings (use warnings() to see them)
+There were 18 warnings (use warnings() to see them)There were 19 warnings (use warnings() to see them)
+There were 15 warnings (use warnings() to see them)
+There were 17 warnings (use warnings() to see them)
+There were 16 warnings (use warnings() to see them)

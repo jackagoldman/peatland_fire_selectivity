@@ -32,6 +32,7 @@ process_fire <- function(i, prog_poly, dnbr_path , peatland_path) {
   
   # get config
   config <- config::get(config="reprocessing")
+  error_log_file <- config$error_log
 
   tryCatch({
     poly <- prog_poly[i, ]
