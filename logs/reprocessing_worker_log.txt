@@ -160,3 +160,43 @@ There were 15 warnings (use warnings() to see them)
 There were 14 warnings (use warnings() to see them)
 There were 16 warnings (use warnings() to see them)There were 18 warnings (use warnings() to see them)
 There were 13 warnings (use warnings() to see them)
+starting worker pid=20096 on localhost:11375 at 13:23:00.604
+starting worker pid=27792 on localhost:11375 at 13:23:00.655
+starting worker pid=31176 on localhost:11375 at 13:23:00.707
+starting worker pid=19252 on localhost:11375 at 13:23:00.760
+starting worker pid=31392 on localhost:11375 at 13:23:00.811
+starting worker pid=13788 on localhost:11375 at 13:23:00.830
+starting worker pid=23680 on localhost:11375 at 13:23:00.918
+starting worker pid=26196 on localhost:11375 at 13:23:00.958
+starting worker pid=4384 on localhost:11375 at 13:23:00.967
+starting worker pid=16340 on localhost:11375 at 13:23:01.005
+Loading required package: sp
+Loading required package: sp
+Loading required package: sp
+Loading required package: sp
+Loading required package: sp
+Loading required package: sp
+Loading required package: sp
+Loading required package: sp
+Loading required package: sp
+Loading required package: sp
+Linking to GEOS 3.14.1, GDAL 3.12.1, PROJ 9.7.1; sf_use_s2() is TRUE
+Linking to GEOS 3.14.1, GDAL 3.12.1, PROJ 9.7.1; sf_use_s2() is TRUE
+Linking to GEOS 3.14.1, GDAL 3.12.1, PROJ 9.7.1; sf_use_s2() is TRUE
+Linking to GEOS 3.14.1, GDAL 3.12.1, PROJ 9.7.1; sf_use_s2() is TRUE
+Linking to GEOS 3.14.1, GDAL 3.12.1, PROJ 9.7.1; sf_use_s2() is TRUE
+Linking to GEOS 3.14.1, GDAL 3.12.1, PROJ 9.7.1; sf_use_s2() is TRUE
+Linking to GEOS 3.14.1, GDAL 3.12.1, PROJ 9.7.1; sf_use_s2() is TRUE
+Linking to GEOS 3.14.1, GDAL 3.12.1, PROJ 9.7.1; sf_use_s2() is TRUE
+Linking to GEOS 3.14.1, GDAL 3.12.1, PROJ 9.7.1; sf_use_s2() is TRUE
+Linking to GEOS 3.14.1, GDAL 3.12.1, PROJ 9.7.1; sf_use_s2() is TRUE
+There were 14 warnings (use warnings() to see them)
+There were 11 warnings (use warnings() to see them)
+There were 11 warnings (use warnings() to see them)
+There were 14 warnings (use warnings() to see them)
+
+There were 14 warnings (use warnings() to see them)
+There were 11 warnings (use warnings() to see them)
+There were 11 warnings (use warnings() to see them)
+
+There were 11 warnings (use warnings() to see them)
