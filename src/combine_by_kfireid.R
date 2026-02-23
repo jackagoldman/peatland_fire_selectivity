@@ -16,11 +16,11 @@ prog_path <- config::get("progression_path")
 progs <- sf::st_read(prog_path)
 
 # get the required columns
-progs_ids <- dplyr::select(progs, c("K_FireID", "K_UniqueID")
+progs_ids <- dplyr::select(progs, c("K_FireID", "K_UniqueID"))
 
 
 # get path to files
-ua_path <– config::get("used_available")
+ua_path <- config::get("used_available")
 
 #set folder path
 ua_folder <- file.path(ua_path)
@@ -29,7 +29,7 @@ library(arrow)
 library(dplyr)
 library(stringr)
 
-df = prog_ids
+df = progs_ids
 input_dir = ua_path 
 output_dir = config::get("combined_output")
 
@@ -64,3 +64,6 @@ merge_parquet_by_fire <- function(df, input_dir, output_dir) {
     message("Wrote fire_", fire)
   }
 }
+
+# execute the function
+merge_parquet_by_fire(df, input_dir, output_dir)
