@@ -8,6 +8,7 @@ default:
   processing_logs: "logs/fire_processing_logs/"  # Directory for processing logs (e.g., "logs/processing_logs/")
   used_available: "data/used_available_per_fire/"
   combined_output: "data/ua_fire_combined/"
+  full_dataset_output: "data/full_dataset/"  # Directory for final combined dataset (e.g., "data/full_dataset/")
 
 local:
    progression_path: "data/fire_progression_polygons/landscape_processed_polygons_km_oct18.shp"  # Local path to fire progression shapefile for testing (e.g., "data/progression.shp")
