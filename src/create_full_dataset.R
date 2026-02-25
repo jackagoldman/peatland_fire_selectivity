@@ -62,7 +62,7 @@ lc_class_names <- c(
 
 # Create lookup table
 lc_lookup <- tibble(
-  Lc_class = as.integer(names(lc_class_names)),
+  Lc_class = as.character(names(lc_class_names)),
   lc_class_name = unname(lc_class_names)
 )
 
