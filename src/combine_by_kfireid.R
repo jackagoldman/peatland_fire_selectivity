@@ -7,10 +7,12 @@
 #- find which k_unique_id is which progression step (first to final)
 #- 
 
+# get defaults
+config <- config::get(file = "config.yml", config = "defaults")
 
 # Make a df which has a column for k_fireID and each corresponding K_UniqueID
 # get progression path
-prog_path <- config::get("progression_path")
+prog_path <- config$progression_path
 
 # read in progression polygons
 progs <- sf::st_read(prog_path)
@@ -20,7 +22,7 @@ progs_ids <- dplyr::select(progs, c("K_FireID", "K_UniqueID"))
 
 
 # get path to files
-ua_path <- config::get("used_available")
+ua_path <- config$used_available
 
 #set folder path
 ua_folder <- file.path(ua_path)
@@ -31,7 +33,9 @@ library(stringr)
 
 df = progs_ids
 input_dir = ua_path 
-output_dir = config::get("combined_output")
+output_dir = config$combined_output
+
+print("Starting merge process...")
 
 merge_parquet_by_fire <- function(df, input_dir, output_dir) {
   dir.create(output_dir, showWarnings = FALSE, recursive = TRUE)
