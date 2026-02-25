@@ -31,8 +31,7 @@ library(arrow)
 library(dplyr)
 library(stringr)
 
-df = progs_ids
-input_dir = ua_path 
+
 output_dir = config$combined_output
 
 print("Starting merge process...")
@@ -72,5 +71,7 @@ merge_parquet_by_fire <- function(df, input_dir, output_dir) {
   }
 }
 
+print(ua_path)
+print(nrow(progs_ids))
 # execute the function
-merge_parquet_by_fire(df, input_dir, output_dir)
+merge_parquet_by_fire(progs_ids, ua_path, output_dir)
