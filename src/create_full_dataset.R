@@ -37,8 +37,7 @@ print("Starting merge process...")
 # Use Arrow's open_dataset for out-of-memory processing
 ds <- open_dataset(combined_path, format = "parquet")
 
-# Collect the dataset into R (this step loads all data into memory)
-combined <- ds %>% collect()
+
 
 # convert lc class column to class names
 lc_class_names <- c(
@@ -61,8 +60,15 @@ lc_class_names <- c(
   "17" = "Urban"
 )
 
-combined <- combined |> 
-  mutate(lc_class_name = lc_class_names[as.character(Lc_class)])
+# Create lookup table
+lc_lookup <- tibble(
+  Lc_class = as.integer(names(lc_class_names)),
+  lc_class_name = unname(lc_class_names)
+)
+
+# Use Arrow join (no collect)
+combined <- ds %>%
+  left_join(lc_lookup, by = "Lc_class")
 
 # write output
 dir.create(output_dir, showWarnings = FALSE, recursive = TRUE)
