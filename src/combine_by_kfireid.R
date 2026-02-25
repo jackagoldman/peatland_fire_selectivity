@@ -44,13 +44,16 @@ merge_parquet_by_fire <- function(df, input_dir, output_dir) {
 
   # loop over fire IDs
   for (fire in unique(df$K_fireID)) {
+    print(fire)
     tryCatch({
       # all UIDs for this fire
       uids <- df$K_UniqueID[df$K_fireID == fire]
+      print(paste("UIDs for fire", fire, ":", paste(uids, collapse = ", ")))
       # find parquet files where the filename contains one of the UIDs
       matched_files <- files[
-        sapply(files, function(f) any(str_detect(basename(f), paste0("\\b", uids, "\\b"))))
+        sapply(files, function(f) any(str_detect(basename(f), uids)))
       ]
+      print(matched_files)
 
       if (length(matched_files) == 0) {
         message("No files found for fire: ", fire)
