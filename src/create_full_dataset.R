@@ -33,12 +33,9 @@ library(stringr)
 
 output_dir = config$full_dataset_output
 print("Starting merge process...")
-# get all parquet files
-files <- list.files(combined_path, pattern = "\\.parquet$", full.names = TRUE)
 
-# read and merge
-tables <- lapply(files, read_parquet)
-combined <- bind_rows(tables)
+# Use Arrow's open_dataset for out-of-memory processing
+ds <- open_dataset(combined_path, format = "parquet")
 
 # convert lc class column to class names
 lc_class_names <- c(
@@ -61,7 +58,7 @@ lc_class_names <- c(
   "17" = "Urban"
 )
 
-combined <- combined %>%
+combined <- ds |> 
   mutate(lc_class_name = lc_class_names[as.character(lc_class)])
 
 # write output
@@ -69,4 +66,4 @@ dir.create(output_dir, showWarnings = FALSE, recursive = TRUE)
 write_parquet(combined, file.path(output_dir, "full_dataset.parquet"), compression = "snappy")
 
 # write out a files of just the X and Y columns 
-write_parquet(combined %>% select(X, Y), file.path(output_dir, "full_dataset_coords.parquet"), compression = "snappy")
+write_parquet(select(combined, X, Y), file.path(output_dir, "full_dataset_coords.parquet"), compression = "snappy")
