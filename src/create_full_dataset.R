@@ -37,6 +37,9 @@ print("Starting merge process...")
 # Use Arrow's open_dataset for out-of-memory processing
 ds <- open_dataset(combined_path, format = "parquet")
 
+# Collect the dataset into R (this step loads all data into memory)
+combined <- ds %>% collect()
+
 # convert lc class column to class names
 lc_class_names <- c(
   "1" = "Open Bog",
@@ -58,7 +61,7 @@ lc_class_names <- c(
   "17" = "Urban"
 )
 
-combined <- ds |> 
+combined <- combined |> 
   mutate(lc_class_name = lc_class_names[as.character(Lc_class)])
 
 # write output
