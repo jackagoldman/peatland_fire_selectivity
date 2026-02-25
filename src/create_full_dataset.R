@@ -68,6 +68,7 @@ lc_lookup <- tibble(
 
 # Use Arrow join (no collect)
 combined <- ds %>%
+  mutate(Lc_class = as.character(Lc_class)) %>%
   left_join(lc_lookup, by = "Lc_class")
 
 # write output
