@@ -41,27 +41,30 @@ merge_parquet_by_fire <- function(df, input_dir, output_dir) {
 
   # loop over fire IDs
   for (fire in unique(df$K_fireID)) {
+    tryCatch({
+      # all UIDs for this fire
+      uids <- df$K_UniqueID[df$K_fireID == fire]
+      # find parquet files where the filename contains one of the UIDs
+      matched_files <- files[
+        sapply(files, function(f) any(str_detect(basename(f), paste0("\\b", uids, "\\b"))))
+      ]
 
-    # all UIDs for this fire
-    uids <- df$K_UniqueID[df$K_fireID == fire]
+      if (length(matched_files) == 0) {
+        message("No files found for fire: ", fire)
+        next
+      }
 
-    # find parquet files where the filename contains one of the UIDs
-    matched_files <- files[
-      sapply(files, function(f) any(str_detect(basename(f), paste0("\\b", uids, "\\b"))))
-    ]
+      # read and merge
+      tables <- lapply(matched_files, read_parquet)
+      combined <- bind_rows(tables)
 
-    if (length(matched_files) == 0) {
-      message("No files found for fire: ", fire)
-      next
-    }
-
-    # read and merge
-    tables <- lapply(matched_files, read_parquet)
-    combined <- bind_rows(tables)
-
-    # write output
-    write_parquet(combined, file.path(output_dir, paste0("fire_", fire, ".parquet")))
-    message("Wrote fire_", fire)
+      # write output
+      write_parquet(combined, file.path(output_dir, paste0("fire_", fire, ".parquet")))
+      message("Wrote fire_", fire)
+  }, error = function(e) {
+      message("Error processing fire ", fire, ": ", e$message)
+    write(e$message, file = "logs/merge_errors.txt", append = TRUE)
+  })
   }
 }
 
