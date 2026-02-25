@@ -43,7 +43,7 @@ merge_parquet_by_fire <- function(df, input_dir, output_dir) {
   files <- list.files(input_dir, pattern = "\\.parquet$", full.names = TRUE)
 
   # loop over fire IDs
-  for (fire in unique(df$K_fireID)) {
+  for (fire in unique(df$K_FireID)) {
     print(fire)
     tryCatch({
       # all UIDs for this fire
