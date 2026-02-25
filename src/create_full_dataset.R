@@ -59,7 +59,7 @@ lc_class_names <- c(
 )
 
 combined <- ds |> 
-  mutate(lc_class_name = lc_class_names[as.character(lc_class)])
+  mutate(lc_class_name = lc_class_names[as.character(Lc_class)])
 
 # write output
 dir.create(output_dir, showWarnings = FALSE, recursive = TRUE)
