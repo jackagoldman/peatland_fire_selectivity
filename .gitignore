@@ -6,3 +6,7 @@ renv/library/
 
 # file types
 .parquet
+
+
+# ignore data folder
+data/
