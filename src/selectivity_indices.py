@@ -61,6 +61,8 @@ def compute_fire_selectivity_pl(
               n_available = pl.len(), # number of pixels available in this class
               n_burned    = pl.col(used_col).sum(), # number of pixels burned in this class
               burn_prob   = pl.col(used_col).mean(), # burn probability, i.e., proportion of pixels burned in this class
+              bu_area = pl.col(used_col).sum() * 30 * 30 / 10000.0, # burned area in hectares (assuming 30m pixels)
+              avail_area = pl.len() * 30 * 30 / 10000.0, # available area in hectares
           )
           .sort(lc_col)
     )
@@ -169,6 +171,7 @@ def ensure_out_dir(path_like: str | Path) -> Path:
     return p
 
 
+
 def detect_fire_id(
     pq_path: Path,
     prefer_column: bool = True,
@@ -186,7 +189,7 @@ def detect_fire_id(
             if id_col in df_id.columns:
                 uniques = df_id.select(pl.col(id_col).unique()).to_series().to_list()
                 if len(uniques) == 1:
-                    return str(uniques[0])
+                    return str(int(uniques[0]))
         except Exception:
             pass
     # Fallback to filename without extension
@@ -235,7 +238,7 @@ def compute_and_save_all_fires(
         )
 
         res = res.select(
-            ["kunique_id", lc_col, "n_available", "n_burned", "burn_prob",
+            ["kunique_id", lc_col, "lc_class_name", "n_available", "n_burned", "burn_prob", "bu_area", "avail_area", 
              "pi_avail", "pi_use", "chesson_alpha", "jacobs_D", "CLUSTERID", "AREA", "C_AREA", "NFIREID", "A_total", "U_total"]
         )
 
