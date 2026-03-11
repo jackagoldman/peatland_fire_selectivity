@@ -82,9 +82,10 @@ def compute_fire_selectivity_pl(
             }
         )
 
-    # Totals across classes for this fire
+    # Totals across classes for this fire - including water
     A_total = int(df["P_total"][0]) # total available pixels 
     U_total = int(df["P_num"][0]) # total burned pixels 
+
 
     # get other important variables for metadata
     C_AREA = int(df["C_AREA"][0]) # total burned area in hectares
@@ -98,25 +99,44 @@ def compute_fire_selectivity_pl(
           .group_by(lc_col)
           .agg(pl.col("lc_class_name").first())
     )
-    agg = agg.join(lc_names, on=lc_col, how="left")
+    agg = agg.join(lc_names, on=lc_col, how="left") # add a column with the names of the Lc class
 
 
-    # I need to remove the amount of pixels in the class "Water" (lc_class 14) from A_total, because those pixels are not available for burning.
-    water_row = agg.filter(pl.col(lc_col) == 14)
-    if water_row.height > 0:
-        water_available = int(water_row["n_available"][0])
+    # I need to remove the amount of pixels in the class "Water" (lc_class 15, 20, 19) from A_total, because those pixels are not available for burning.
+    water_rows = agg.filter(pl.col(lc_col).is_in([15,20,19])) # get the row for Water class
+    if water_rows.height > 0:
+        water_available = int(water_rows.select(pl.col("n_available").sum()).item())
         A_total -= water_available
-        print(f"[info] Adjusted A_total by removing Water class: {water_available} pixels; new A_total={A_total}")
+        print(f"[info] Adjusted A_total by removing Water classes: {water_available} pixels; new A_total={A_total}")
     
     # adjust burned pixels if any burned pixels were in the Water class (unlikely but for completeness)
-    if water_row.height > 0:
-        water_burned = int(water_row["n_burned"][0])
+    if water_rows.height > 0:
+        water_burned = int(water_rows.select(pl.col("n_burned").sum()).item())
         U_total -= water_burned
-        print(f"[info] Adjusted U_total by removing Water class: {water_burned} pixels; new U_total={U_total}")
+        print(f"[info] Adjusted U_total by removing Water classes: {water_burned} pixels; new U_total={U_total}")
 
-    # remove the Water class from the aggregation since it's not part of the availability domain
-    agg = agg.filter(pl.col(lc_col) != 14)
+    # adjust A_total and U_total by removing agriculture classes (25,26,27) since those pixels are not part of the availability domain
+    ag_rows = agg.filter(pl.col(lc_col).is_in([25, 26, 27]))
+    if ag_rows.height > 0:
+        ag_available = int(ag_rows.select(pl.col("n_available").sum()).item())
+        ag_burned = int(ag_rows.select(pl.col("n_burned").sum()).item())
+        A_total -= ag_available
+        U_total -= ag_burned
+        print(f"[info] Adjusted A_total by removing Agriculture classes: {ag_available} pixels; new A_total={A_total}")
+        print(f"[info] Adjusted U_total by removing Agriculture classes: {ag_burned} pixels; new U_total={U_total}")
 
+    # adjust A_total and U_total by removing urban (22, 23, 24)
+    urban_rows = agg.filter(pl.col(lc_col).is_in([22, 23, 24]))
+    if urban_rows.height > 0:
+        urban_available = int(urban_rows.select(pl.col("n_available").sum()).item())
+        urban_burned = int(urban_rows.select(pl.col("n_burned").sum()).item())
+        A_total -= urban_available
+        U_total -= urban_burned
+        print(f"[info] Adjusted A_total by removing Urban classes: {urban_available} pixels; new A_total={A_total}")
+        print(f"[info] Adjusted U_total by removing Urban classes: {urban_burned} pixels; new U_total={U_total}")
+
+    # Remove agriculture, water and urban classes since those pixels are not part of the availability domain and would distort selectivity calculations.
+    agg = agg.filter(~pl.col(lc_col).is_in([15, 19, 20, 22, 23, 24, 25, 26, 27]))
 
     # Add proportions across classes
     agg = agg.with_columns(
