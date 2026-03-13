@@ -1,0 +1,52 @@
+Peatland and Canopy Cover Map for the Canadian Boreal Region
+NicholasPontone (February 2024) <NicholasPontone@cmail.carleton.ca>
+
+
+This map is a combination of two publically available data products, a map of peatland sub-classes from Pontone et al. (2024), and 
+a canopy cover map from Guindon et al. (2024).
+
+
+PPC = Peatland Permafrost Complex
+Open = <10% cover
+Treed = 10-25% cover
+Forested = >25% cover
+
+
+Citations:
+
+Pontone, N., Millard, K., Thompson, D.K., Guindon, L. and Beaudoin, A. (2024), A hierarchical, multi-sensor framework for peatland sub-class and vegetation mapping throughout the Canadian boreal forest. Remote Sens Ecol Conserv. https://doi.org/10.1002/rse2.384
+
+Guindon, L., Manka, F., Correia, D.L.P., Villemaire, P., Smiley, B., Bernier, P., Gauthier, S., Beaudoin, A., Boucher, J., and Boulanger, Y. 2024. A new approach for Spatializing the Canadian National Forest Inventory (SCANFI) using Landsat dense time series. Can. J. For. Res. https://doi.org/10.1139/cjfr-2023-0118
+
+
+Pixel Values:
+
+1: Open Upland
+2: Open Poor Fen
+3: Open Rich Fen
+4: Open PPC
+5: Open Bog
+6: Open Mineral Wetland
+7: Forested Upland
+8: Forested PPC
+9: Forested Mineral Wetland
+10: Treed Mineral Wetland
+11: Treed Upland
+12: Forested Rich Fen
+13: Forested Bog
+14: Forested Poor Fen
+15: Water
+16: Treed PPC
+17: Treed Rich Fen
+18: Treed Bog
+19: Water
+20: Water
+21: Treed Poor Fen
+22: Treed Urban
+23: Open Urban
+24: Forested Urban
+25: Forested Agriculture
+26: Open Agriculture
+27: Treed Agriculture
+
+

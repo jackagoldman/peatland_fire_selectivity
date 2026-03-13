@@ -1,0 +1,25 @@
+Selectivity data based on calculation in selectivity_indices.py
+
+
+
+
+Columns:
+
+kunique_id : unique identifier for each progression polygon 
+Lc_class : Landcover class identifier
+lc_class_name : Land cover class name
+n_available : number of available points in the polygon   
+n_burned : number of burned points in the polygon     
+burn_prob : probability of burning (n_burned / n_available)    
+bu_area : area of burned points in the polygon (m2)      
+avail_area : area of available points in the polygon (m2)   
+pi_avail : proportion of available points in the polygon (avail_area / total area available pixels)     
+pi_use : proportion of burned points in the polygon (bu_area / total area of burned pixels)      
+chesson_alpha : Chesson's alpha selectivity index (pi_use / pi_avail / sum(pi_use / pi_avail))
+jacobs_D : Jacobs' D selectivity index ((pi_use - pi_avail) / (pi_use + pi_avail - 2 * pi_use * pi_avail))
+CLUSTERID : cluster identifier for each polygon , used to join FWI
+AREA : Unsure, from progression polygon         
+C_AREA : Unsure, from progression polygon
+NFIREID : NBAC fire ID      
+A_total : total area of the available pixels not including agriculture, water and urban   
+U_total   : total area of burned pixels not classified as urban, agriculture or water

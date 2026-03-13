@@ -32,3 +32,11 @@ python:
   kunique_input: "data/K_UniqueID/used_available_per_fire/"  # Directory containing used-available datasets for K-UniqueID (e.g., "data/used_available_per_fire/")
   kunique_output: "data/K_UniqueID/ua_converted_lc/"  # Directory for K-UniqueID results (e.g., "data/K_UniqueID/k_unique_results/")
   kunique_selectivity_output: "data/K_UniqueID/selectivity/"  # Directory for K-UniqueID selectivity results (e.g., "data/K_UniqueID/k_unique_selectivity/")
+  fwi_input: "data/FWI_metrics_2023_fires_all_dates_by_progression_Oct17KM_NEWclipped.csv"
+  progression: "data/fire_progression_polygons/landscape_processed_polygons_km_oct18.shp"  
+  progression_2: "data/progression_NBAC_km_oct2024/"
+  dnbr_rasters: "data/dNBR rasters/"
+  peatland_raster: "../../data/nickp_products/Peat_Canopy_2023_11_06.tif"
+  progression_2_output: "data/progression_NBAC_km_oct2024/progression_NBAC_km_oct2024_jag.shp"
+  dnbr_aligned: "data/dnbr_aligned/"
+  new_ua_processed: "data/new_processed_progressions/used_available/"
