@@ -281,6 +281,21 @@ def process_one_fire(
                     "in_landscape": in_landscape_vals[start:end],
                     "area_factor_m2_per_pixel": area_factor_m2_per_pixel,  # <-- NEW (scalar)
                 })
+
+
+                # ensure dtypes (optimize for storage and downstream processing)
+                df["K_FireID"] = df["K_FireID"].astype(str)
+                df["CLUSTERID"] = pd.to_numeric(df["CLUSTERID"], errors="coerce").astype("Int64")  # pandas nullable int
+                df["K_UniqueID"] = (df["K_UniqueID"].astype("Int64")
+                                    if "K_UniqueID" in df.columns else pd.Series(pd.array([pd.NA]*len(df), dtype="Int64")))
+                df["DATE"] = df["DATE"].astype(str)  # or convert to datetime64[ns] if consistent
+                df["x"] = df["x"].astype("float64")
+                df["y"] = df["y"].astype("float64")
+                df["lc_class"] = df["lc_class"].astype("Int32")
+                df["used"] = df["used"].astype("Int8")
+                df["in_landscape"] = df["in_landscape"].astype("Int8")
+                df["area_factor_m2_per_pixel"] = df["area_factor_m2_per_pixel"].astype("float64")
+
                 df.to_parquet(out_fire_cluster / f"part-{part:04d}.parquet", index=False)
                 part += 1
                 start = end
@@ -369,6 +384,8 @@ def run_all_fires_parallel(
                 print("error:", e)
 
 
+
+# remove later for calling from execute_workflow.py
 if __name__ == "__main__":
     run_all_fires_parallel(
         progression_path=PROGRESSION_PATH,
