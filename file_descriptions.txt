@@ -1,3 +1,24 @@
+Execute_workflow.py is the top level function that executes the entire workflow. It calls the functions in the following order:
+
+1. process_fire.py: processes the fire data and creates the progression polygons.
+2. get areas of clusters from utils.py:
+    - cluster_areas(): calculates the area of each cluster in the progression polygons (poly), and landscape polygons (buffer)
+    - cluster_burned_areas(): calculates the area of burned pixels in each cluster using the pixel factor
+2. consolidate_fire.py: consolidates the progression polygons and creates the final output.
+3. selectivity_indices.py: calculates the selectivity indices for each progression polygon.
+4. create full dataset.py: creates the final dataset by joining the selectivity indices with the FWI data.
+
+src/functions/ contains all the functions used in the workflow.
+
+config.yml contains the paths to the input data and output data, as well as any parameters used in the workflow.
+
+Data files:
+
+
+
+
+
+
 Selectivity data based on calculation in selectivity_indices.py
 
 
