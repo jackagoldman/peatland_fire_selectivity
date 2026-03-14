@@ -1,0 +1,133 @@
+import os
+import re
+import warnings
+from typing import Optional, Union, Iterable
+from pathlib import Path
+
+
+import geopandas as gpd
+import numpy as np
+import pandas as pd
+import rasterio
+from shapely.geometry import Point
+import yaml
+
+# ---------- Configuration helpers ----------
+
+def load_config(filepath: Path) -> dict:
+    with open(filepath, "r") as f:
+        return yaml.safe_load(f)
+
+# Load config relative to this file (adjust if needed)
+SETTINGS = load_config(Path(__file__).parent.parent.parent / "config.yml")
+
+
+#----------- calculate area of polygons from clusters  ----------
+
+def cluster_areas(progression_path: str,
+                  landscape_path: str,
+                  out_path: str,
+                  id_col: str = "CLUSTERID",
+                  area_crs: str = "EPSG:3347") -> pd.DataFrame:
+    """
+    Compute per-CLUSTERID polygon areas from two shapefiles and return a
+    merged DataFrame with columns:
+        CLUSTERID, poly_area (progression), buffer_area (landscape)
+
+    Parameters
+    ----------
+    progression_path : str
+        Path to the progression shapefile (polygons).
+    landscape_path : str
+        Path to the landscape shapefile (polygons).
+    out_path : str
+        Path to write the output Parquet file with area calculations.
+    id_col : str, default "CLUSTERID"
+        The ID column present in both shapefiles.
+    area_crs : str, default "EPSG:6933"
+        Equal-area CRS used for area calculation if input is geographic.
+
+    Returns
+    -------
+    pandas.DataFrame
+        Columns: [CLUSTERID, poly_area, buffer_area]; areas in square meters.
+    """
+
+    def _prep_and_area(path, id_col, area_crs):
+        gdf = gpd.read_file(path)
+
+        if id_col not in gdf.columns:
+            raise KeyError(f"'{id_col}' not found in {path} columns: {list(gdf.columns)}")
+
+        # Drop rows without an ID or geometry
+        gdf = gdf.dropna(subset=[id_col, gdf.geometry.name]).copy()
+
+        if gdf.empty:
+            return pd.DataFrame(columns=[id_col, "area_m2"]).astype({id_col: gdf.dtypes.get(id_col, "object")})
+
+        # Ensure we have a CRS; if missing, you may need to set it manually before calling this function
+        if gdf.crs is None:
+            raise ValueError(f"CRS is missing in {path}. Set the CRS before area calculation.")
+
+        # If geographic (degrees), project to equal-area for correct area computation
+        if not gdf.crs.is_projected:
+            gdf = gdf.to_crs(area_crs)
+
+        # Compute area (m²) for polygons; non-polygons will yield 0
+        gdf["area_m2"] = gdf.geometry.area.fillna(0)
+
+        # Sum by ID
+        return (gdf.groupby(id_col, dropna=False, as_index=False)["area_m2"]
+                    .sum())
+
+    prog = _prep_and_area(progression_path, id_col, area_crs).rename(columns={"area_m2": "poly_area"})
+    land = _prep_and_area(landscape_path,  id_col, area_crs).rename(columns={"area_m2": "buffer_area"})
+
+    # Outer join to keep all IDs present in either file
+    out = pd.merge(prog, land, on=id_col, how="outer")
+
+    # Replace NaNs with 0 for areas where an ID is missing in one source
+    out[["poly_area", "buffer_area"]] = out[["poly_area", "buffer_area"]].fillna(0)
+
+    # write out as parquet
+    out.to_parquet(out_path, index=False)
+
+    # Optional: sort by ID
+    return out.sort_values(by=id_col).reset_index(drop=True)
+
+# ------ calculate area of burned pixels from cluster using factor column in consolidated fire files ----------
+def cluster_burned_area(
+    fire_parquet_path: str,
+    id_col: str = "CLUSTERID",
+    factor_col: str = "area_factor_m2_per_pixel",
+) -> pd.DataFrame:
+    """
+    Calculate burned area for each cluster by summing the area factor column
+    across all pixels in the consolidated fire Parquet file.
+
+    Parameters
+    ----------
+    fire_parquet_path : str
+        Path to the consolidated fire Parquet file containing pixel-level data.
+    id_col : str, default "CLUSTERID"
+        The column name in the Parquet file that identifies clusters.
+    factor_col : str, default "area_factor_m2_per_pixel"
+        The column name that contains the area factor (m² per pixel).
+
+    Returns
+    -------
+    pandas.DataFrame
+        DataFrame with columns [CLUSTERID, burned_area_m2] where burned_area_m2 is the sum of area factors for each cluster.
+    """
+    df = pd.read_parquet(fire_parquet_path, columns=[id_col, factor_col])
+
+    if id_col not in df.columns:
+        raise KeyError(f"'{id_col}' not found in Parquet columns: {list(df.columns)}")
+    if factor_col not in df.columns:
+        raise KeyError(f"'{factor_col}' not found in Parquet columns: {list(df.columns)}")
+
+    # Sum area factors by cluster ID
+    burned_area = df.groupby(id_col, dropna=False)[factor_col].sum().reset_index()
+    burned_area.rename(columns={factor_col: "burned_area_m2"}, inplace=True)
+
+    return burned_area.sort_values(by=id_col).reset_index(drop=True)
