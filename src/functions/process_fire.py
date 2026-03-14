@@ -375,6 +375,5 @@ if __name__ == "__main__":
         landscape_path=LANDSCAPE_PATH,
         out_dir=OUT_DIR,
         max_processes=8,
-        dnbr_threshold=0.1,
-        n=3
+        dnbr_threshold=0.1
     )
