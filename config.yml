@@ -40,3 +40,5 @@ python:
   progression_2_output: "data/progression_NBAC_km_oct2024/progression_NBAC_km_oct2024_jag.shp"
   dnbr_aligned: "data/dnbr_aligned/"
   new_ua_processed: "data/new_processed_progressions/used_available/"
+  new_ua_consolidated: "data/new_processed_progressions/used_available_combined/"
+  cluster_areas: "data/new_processed_progressions/cluster_areas/progression_landscape_areas_by_cluster.parquet"
