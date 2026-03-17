@@ -6,7 +6,7 @@ from pathlib import Path
 
 
 from src.functions.consolidate_fires import consolidate_all_fires, consolidate_one_fire, concatenate_fires
-from src.functions.utils import SETTINGS, cluster_areas, cluster_burned_area
+from src.functions.utils import SETTINGS, cluster_areas, cluster_burned_area, merge_fire_dir_inplace
 from src.functions.process_fire import run_all_fires_parallel
 
 def main():
@@ -78,8 +78,20 @@ def main():
 
 
 # Step 6: 
-  # calculate selectivity indices 
+  # join area to individual parquet files
   
+    merge_fire_dir_inplace(
+                fire_dir=SETTINGS["python"]["new_ua_consolidated"],
+                progression_landscape_path=SETTINGS["python"]["cluster_areas"],
+                burned_area_path=SETTINGS['python']['burned_areas'],
+                recursive=False,               # set True to recurse subdirectories
+                cluster_col="CLUSTERID",
+                poly_area_col="poly_area",
+                buffer_area_col="buffer_area",
+                burned_area_col="burned_area_m2",
+            )
+
+
 
 
 if __name__ == "__main__":
