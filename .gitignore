@@ -10,3 +10,7 @@ renv/library/
 
 # ignore data folder
 data/
+
+
+# 
+_pycache_/
