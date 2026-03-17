@@ -144,24 +144,3 @@ def make_prog_sub(
     return prog_sub
 
 
-if __name__ == "__main__":
-    # ---- Example usage ----
-    progression_path = SETTINGS["python"]["progression_2"]  
-    peat_raster_path = SETTINGS["python"]["peatland_raster"]
-    dnbr_folder = SETTINGS["python"]["dnbr_rasters"]
-
-    prog_sub = make_prog_sub(
-        progression_path=progression_path,
-        peat_raster_path=peat_raster_path,
-        dnbr_folder=dnbr_folder,
-        area_quantile=0.20,
-        buffer_distance_m=200.0,
-        working_crs="EPSG:3347",
-        fix_invalid_geoms=True,
-    )
-
-    # Optional: save the result
-    if not prog_sub.empty:
-        out_path = SETTINGS["python"]["progression_2_output"]
-        prog_sub.to_file(out_path, driver="GeoJSON")
-        print(f"Saved prog_sub → {out_path}")

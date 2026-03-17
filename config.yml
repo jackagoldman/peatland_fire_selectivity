@@ -43,3 +43,4 @@ python:
   new_ua_consolidated: "data/new_processed_progressions/used_available_combined/"
   cluster_areas: "data/new_processed_progressions/cluster_areas/progression_landscape_areas_by_cluster.parquet"
   burned_areas: "data/new_processed_progressions/cluster_areas/burned_areas.parquet"
+  by_cluster_ids: "data/new_processed_progressions/ua_clusterid/"

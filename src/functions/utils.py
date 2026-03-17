@@ -15,6 +15,8 @@ import pandas as pd
 import rasterio
 from shapely.geometry import Point
 import yaml
+import shutil
+
 
 # ---------- Configuration helpers ----------
 
@@ -24,6 +26,31 @@ def load_config(filepath: Path) -> dict:
 
 # Load config relative to this file (adjust if needed)
 SETTINGS = load_config(Path(__file__).parent.parent.parent / "config.yml")
+
+
+# -------- Collect cluster ids to parquet
+
+
+
+def collect_cluster_parquets(root_dir):
+    """
+    Scans FireID=*/CLUSTERID=*/ folders inside `root_dir`,
+    copies each .parquet file into root_dir/ua_clusterid/,
+    and renames them as ua_<clusterid>.parquet.
+    """
+    root = Path(root_dir)
+    out = root.parent / "ua_clusterid"
+    out.mkdir(exist_ok=True)
+
+    for fire_dir in root.glob("FireID=*"):
+        for cluster_dir in fire_dir.glob("CLUSTERID=*"):
+            cluster_id = cluster_dir.name.split("=")[1]
+
+            # find parquet file
+            for pq in cluster_dir.glob("*.parquet"):
+                new_name = f"ua_{cluster_id}.parquet"
+                shutil.copy2(pq, out / new_name)
+                break  # use first parquet if multiple
 
 
 #----------- calculate area of polygons from clusters  ----------
