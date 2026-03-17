@@ -16,7 +16,7 @@ def compute_burn_and_available_ratios(df):
     """
 
     # ---- 0. Extract metadata ----
-    meta_cols = ["K_FireID", "CLUSTERID", "K_uniqueID", "DATE", "lc_class_name"]
+    meta_cols = ["K_FireID", "CLUSTERID", "K_UniqueID", "DATE", "lc_class_name"]
     meta = df[meta_cols].iloc[0].to_dict()
 
     # ---- 1. Remove all water pixels BEFORE any calculations ----
@@ -83,7 +83,7 @@ def calculate_ratios(in_dir, out_dir):
     files = [f for f in os.listdir(in_dir) if f.endswith(".parquet")]
 
     for fname in files:
-        fpath = os.path.join(out_dir, fname)
+        fpath = os.path.join(in_dir, fname)
 
         # Load parquet
         df = pd.read_parquet(fpath)
@@ -92,7 +92,8 @@ def calculate_ratios(in_dir, out_dir):
         ratio_df = compute_burn_and_available_ratios(df)
 
         # Save back (overwrite)
-        ratio_df.to_parquet(fpath, index=False)
+        out_path = os.path.join(out_dir, fname)
+        ratio_df.to_parquet(out_path, index=False)
 
         print(f"Ratio calculated for: {fname}")
 
