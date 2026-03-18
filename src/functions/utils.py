@@ -29,9 +29,6 @@ SETTINGS = load_config(Path(__file__).parent.parent.parent / "config.yml")
 
 
 # -------- Collect cluster ids to parquet
-
-
-
 def collect_cluster_parquets(root_dir):
     """
     Scans FireID=*/CLUSTERID=*/ folders inside `root_dir`,
@@ -51,6 +48,8 @@ def collect_cluster_parquets(root_dir):
                 new_name = f"ua_{cluster_id}.parquet"
                 shutil.copy2(pq, out / new_name)
                 break  # use first parquet if multiple
+
+
 
 
 #----------- calculate area of polygons from clusters  ----------
@@ -242,106 +241,3 @@ def cluster_burned_area(
 
 
 
-# merge cluster areas and burned area back to individual fire files 
-
-def _align_key_dtype(lf: pl.LazyFrame, key: str, target_dtype: pl.DataType) -> pl.LazyFrame:
-    """Cast join key to target dtype when present."""
-    return lf.with_columns(pl.col(key).cast(target_dtype)) if key in lf.columns else lf
-
-
-def merge_fire_file_inplace(
-    fire_parquet_path: Union[str, Path],
-    progression_landscape_path: Union[str, Path],
-    burned_area_path: Union[str, Path],
-    *,
-    cluster_col: str = "CLUSTERID",
-    poly_area_col: str = "poly_area",
-    buffer_area_col: str = "buffer_area",
-    burned_area_col: str = "burned_area_m2",
-) -> None:
-    """
-    Read one K_FireID_*.parquet and LEFT JOIN:
-      1) [poly_area, buffer_area] from progression_landscape_areas_by_cluster.parquet on CLUSTERID
-      2) [burned_area_m2] from burned_area.parquet on CLUSTERID
-
-    Overwrites the original file in place (same path, same name).
-    - Left joins preserve the row count of the fire file; unmatched keys yield nulls.
-    - The join key dtype is aligned to the fire file schema to avoid join errors.
-    """
-    fire_parquet_path = Path(fire_parquet_path)
-    progression_landscape_path = Path(progression_landscape_path)
-    burned_area_path = Path(burned_area_path)
-
-    # Lazy scans
-    lf_fire = pl.scan_parquet(fire_parquet_path)
-
-    lf_prog_land = (
-        pl.scan_parquet(progression_landscape_path)
-          .select([cluster_col, poly_area_col, buffer_area_col])
-    )
-
-    lf_burned = (
-        pl.scan_parquet(burned_area_path)
-          .select([cluster_col, burned_area_col])
-    )
-
-    # Align join key dtypes to the fire file’s dtype (fallback Int64)
-    fire_dtype = lf_fire.schema.get(cluster_col, pl.Int64)
-    lf_fire      = _align_key_dtype(lf_fire, cluster_col, fire_dtype)
-    lf_prog_land = _align_key_dtype(lf_prog_land, cluster_col, fire_dtype)
-    lf_burned    = _align_key_dtype(lf_burned, cluster_col, fire_dtype)
-
-    # Left joins preserve fire row count
-    lf_out = (
-        lf_fire.join(lf_prog_land, on=cluster_col, how="left")
-               .join(lf_burned,    on=cluster_col, how="left")
-    )
-
-    # Collect and overwrite in place
-    out_df = lf_out.collect()
-    out_df.write_parquet(fire_parquet_path)  # overwrite same file
-    print(f"[ok] Overwrote: {fire_parquet_path} (rows={out_df.height}, cols={out_df.width})")
-
-
-def merge_fire_dir_inplace(
-    fire_dir: Union[str, Path],
-    progression_landscape_path: Union[str, Path],
-    burned_area_path: Union[str, Path],
-    *,
-    recursive: bool = False,
-    cluster_col: str = "CLUSTERID",
-    poly_area_col: str = "poly_area",
-    buffer_area_col: str = "buffer_area",
-    burned_area_col: str = "burned_area_m2",
-) -> List[Path]:
-    """
-    Process all K_FireID_*.parquet files under fire_dir (optionally recursively),
-    performing the joins and overwriting each file in place.
-
-    Returns the list of updated file paths.
-    """
-    fire_dir = Path(fire_dir)
-    pattern = "**/K_FireID_*.parquet" if recursive else "K_FireID_*.parquet"
-    files = sorted(fire_dir.glob(pattern))
-    if not files:
-        print(f"[warn] No files matching {pattern} in {fire_dir}")
-        return []
-
-    updated: List[Path] = []
-    for f in files:
-        try:
-            merge_fire_file_inplace(
-                fire_parquet_path=f,
-                progression_landscape_path=progression_landscape_path,
-                burned_area_path=burned_area_path,
-                cluster_col=cluster_col,
-                poly_area_col=poly_area_col,
-                buffer_area_col=buffer_area_col,
-                burned_area_col=burned_area_col,
-            )
-            updated.append(f)
-        except Exception as e:
-            print(f"[error] Failed to update {f}: {e}")
-
-    print(f"[done] updated={len(updated)} in {fire_dir}")
-    return updated
