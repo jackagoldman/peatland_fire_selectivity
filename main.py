@@ -1,7 +1,15 @@
+# MAIN WORKFLOW SCRIPT
+# This script orchestrates the entire workflow for processing fire progression data, calculating burned areas, 
+# computing selectivity indices, and creating a consolidated dataset for analysis.
+#  It calls functions from the src/functions directory to perform each step of the workflow.
+
+
+# please see file_descriptions.txt for detailed descriptions of each function and workflow step, 
+# as well as the config.yml file for configuration details.
+
+
+# Import necessary libraries
 import os
-import re
-import warnings
-from typing import Optional, Union, Iterable
 from pathlib import Path
 from datetime import datetime
 
@@ -16,6 +24,10 @@ from src.functions.calculate_ratios import calculate_ratios
 from src.functions.convert_lc_class import add_lc_class_name_to_parquet
 from src.functions.selectivity_indices import calculate_selectivity
 from src.functions.create_full_dataset import concat_dataframes, get_east_west_from_centroids, filter_low_availability_classes, merge_fwi_data, classify_fwi_bins, classify_fwi_quartile_bins, classify_canopy_and_class_bins, classify_season_bins
+from src.functions.summary_statistics import summarize_lands_abundance, find_peatland_fires, find_peatland_dominant_fires, chunk_fires_three_bins
+
+
+# Define main function to run the workflow
 
 def main():
     print("Run the full workflow")
@@ -115,6 +127,11 @@ def main():
     east_west_df = get_east_west_from_centroids(prog_file, save_output=False)
     print("East/west classification created. Number of rows:" , east_west_df.shape[0])
 
+    # using east vs west centroids, get the ecozone classification for each fire 
+    # read in boreal NA ecozones shapefile 
+    # make new column called ecozone which is the ecozone classification for each fire (based on the centroid of the fire progression)
+
+
     # Merge east/west classification with full dataset
     full_dataset = full_dataset.join(east_west_df, on="CLUSTERID", how="left")
     print("Full dataset merged with east/west classification. Number of rows:" , full_dataset.shape[0])
@@ -144,6 +161,19 @@ def main():
     print("Season bins classified and full dataset saved. Number of rows:" , classified_season.shape[0])
     date_str = datetime.today().strftime("%Y%m%d")
     print(f"Full dataset saved to {output_dir / f'fire_selectivity_full_dataset_{date_str}.parquet'}")
+
+
+
+##-------------------------------
+#  Summary statistics
+##-------------------------------
+
+# summary statistics calculated as per Dan's request
+# 1. landscape abundance vs burn frequency
+# 2. burn rate of peatland fires vs adjacent uplands
+# 3. what fire shows a pereference for burning in peatlands? preference vs indifference vs avoidance
+
+
 
 
 
