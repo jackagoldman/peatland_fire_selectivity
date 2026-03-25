@@ -164,14 +164,31 @@ def main():
 
 
 
-##-------------------------------
-#  Summary statistics
-##-------------------------------
+    ##-------------------------------
+    #  Summary statistics
+    ##-------------------------------
+    out_rel = SETTINGS["python"]["full_dataset_output"]  # e.g., "data/full_dataset/"
 
-# summary statistics calculated as per Dan's request
-# 1. landscape abundance vs burn frequency
-# 2. burn rate of peatland fires vs adjacent uplands
-# 3. what fire shows a pereference for burning in peatlands? preference vs indifference vs avoidance
+    # Get full paths to only parquet files
+    parquet_files = [
+        os.path.join(out_rel, f)
+        for f in os.listdir(out_rel)
+        if f.endswith(".parquet")
+    ]
+
+    # Pick the most recent one
+    latest = max(parquet_files, key=os.path.getmtime)
+
+
+    # summary statistics calculated as per Dan's request
+    # 1. landscape abundance vs burn frequency
+    lands_abund = summarize_lands_abundance(latest)
+    # 2. burn rate of peatland fires vs adjacent uplands
+    peatland_fires = find_peatland_fires(lands_abund)
+    peatland_dominant_fires = find_peatland_dominant_fires(lands_abund)
+    # 3. what fire shows a pereference for burning in peatlands? preference vs indifference vs avoidance
+    peat_classes = [1,2,3,4,5,6,8,9,10,12,13,14,16,17,18,21]  # all peatland classes based on LC_MAP
+    classify_fires_by_peatland_abundance = chunk_fires_three_bins(lands_abund, peat_classes=peat_classes)
 
 
 

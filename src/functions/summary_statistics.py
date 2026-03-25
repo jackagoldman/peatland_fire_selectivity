@@ -31,7 +31,7 @@ def summarize_lands_abundance(parquet_path: str,
     # ---- 2. Group by region and class, then sum areas ----
     grp = list(region_cols) + [class_col]
     per_class = (
-        df.groupby(grp)
+        df.group_by(grp)
         .agg([
             pl.sum(burned_col).alias("class_burned"), 
             pl.sum(area_col).alias("class_area"),
@@ -46,7 +46,7 @@ def summarize_lands_abundance(parquet_path: str,
 
     # region-level summary of burn_frequency across classes
     region_summary = (
-        per_class.groupby(list(region_cols))
+        per_class.group_by(list(region_cols))
                  .agg([
                      pl.count("lc_class").alias("n_classes"),
                      pl.col("bp").mean().alias("burn_freq_mean"),
@@ -83,8 +83,8 @@ def find_peatland_fires(per_class_df: pl.DataFrame, peatland_classes: Sequence[i
     upland = per_class_df.filter(~pl.col("lc_class").is_in(peatland_classes))
 
     # Compute average burn probability for peatlands and uplands per fire
-    peatland_burn_prob = peatland.groupby("fire_id").agg(pl.mean("bp").alias("peat_burn_prob"))
-    upland_burn_prob = upland.groupby("fire_id").agg(pl.mean("bp").alias("upland_burn_prob"))
+    peatland_burn_prob = peatland.group_by("fire_id").agg(pl.mean("bp").alias("peat_burn_prob"))
+    upland_burn_prob = upland.group_by("fire_id").agg(pl.mean("bp").alias("upland_burn_prob"))
 
     # Join the two summaries on fire_id
     burn_comparison = peatland_burn_prob.join(upland_burn_prob, on="fire_id")
@@ -114,8 +114,8 @@ def find_peatland_dominant_fires(per_class_df: pl.DataFrame, peatland_classes: S
     upland = per_class_df.filter(~pl.col("lc_class").is_in(peatland_classes))
 
     # Compute average burn probability for peatlands and uplands per fire
-    peatland_burn_prob = peatland.groupby("fire_id").agg(pl.mean("bp").alias("peat_burn_prob"))
-    upland_burn_prob = upland.groupby("fire_id").agg(pl.mean("bp").alias("upland_burn_prob"))
+    peatland_burn_prob = peatland.group_by("fire_id").agg(pl.mean("bp").alias("peat_burn_prob"))
+    upland_burn_prob = upland.group_by("fire_id").agg(pl.mean("bp").alias("upland_burn_prob"))
 
     # Join the two summaries on fire_id
     burn_comparison = peatland_burn_prob.join(upland_burn_prob, on="fire_id")
@@ -152,7 +152,7 @@ def classify_fire_preference(per_class_df: pl.DataFrame, peatland_classes: Seque
     peat_agg = (
         per_class_df
         .filter(pl.col("lc_class").is_in(peatland_classes))
-        .groupby("fire_id")
+        .group_by("fire_id")
         .agg([
             pl.col("class_burned").sum().alias("peat_burned"),
             pl.col("class_area").sum().alias("peat_area")
@@ -162,7 +162,7 @@ def classify_fire_preference(per_class_df: pl.DataFrame, peatland_classes: Seque
     upland_agg = (
         per_class_df
         .filter(~pl.col("lc_class").is_in(peatland_classes))
-        .groupby("fire_id")
+        .group_by("fire_id")
         .agg([
             pl.col("class_burned").sum().alias("upland_burned"),
             pl.col("class_area").sum().alias("upland_area")
