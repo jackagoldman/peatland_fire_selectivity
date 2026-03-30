@@ -17,6 +17,6 @@ src/functions/__pycache__/
 
 
 # ignore R and qmd files
-*.R
+
 *.qmd
 *.r
